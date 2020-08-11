@@ -6,11 +6,15 @@ import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeView;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
@@ -22,6 +26,8 @@ import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 import lincejava.Model.ContatoModel;
 import lincejava.Model.EnderecoModel;
+import lincejava.Model.EstadoModel;
+import lincejava.Model.PaisModel;
 import lincejava.Model.TecnicoModel;
 
 public class PrincipalController {
@@ -118,8 +124,23 @@ public class PrincipalController {
 
     @FXML
     private ToggleGroup Trace;
+    
+    @FXML 
+    private TableView tecnicoTableView;
+    
+    @FXML
+    private JFXComboBox<EstadoModel> cbEstado;
+    
+    @FXML
+    private JFXComboBox<PaisModel> cbPais;
+    
+    
+    
   // Variáveis gerais 
     private String quemChamou = "";
+    
+    private ArrayList<PaisModel> paises;
+    private ArrayList<EstadoModel> estados;
     
 // Preencher TreeTableView
     
@@ -135,35 +156,72 @@ public class PrincipalController {
    
    
     @FXML
-    void initialize()
+    void initialize() throws ClassNotFoundException, SQLException
     {
+        loadComboBoxData();
         
-        TreeItem<String> tecnicos = new TreeItem<String>();
         
-        tecnicos.setValue("Tecnicos");
+//        TreeItem<String> tecnicos = new TreeItem<String>();
+//        
+//        tecnicos.setValue("Tecnicos");
+//        
+//        tecnicos.getChildren().addAll(
+//                new TreeItem<String>("José"), 
+//                new TreeItem<String>("Marcelo"),
+//                new TreeItem<String>("Severino")
+//        );
+//        
+//        tecnicoTreeView = new JFXTreeView<String>(tecnicos);
+//        
+//        AnchorPaneAside.getChildren().add(tecnicoTreeView);
         
-        tecnicos.getChildren().addAll(
-                new TreeItem<String>("José"), 
-                new TreeItem<String>("Marcelo"),
-                new TreeItem<String>("Severino")
-        );
+        // Popular tabela de técnico
         
-        tecnicoTreeView = new JFXTreeView<String>(tecnicos);
         
-        AnchorPaneAside.getChildren().add(tecnicoTreeView);
-             
-//      AnchorPaneAside.getChildren().add(tecnicoTreeView);
         
-//       tecnico1.getChildren().setAll(item_t1_l1,item_t1_l2);
-//       tecnico2.getChildren().setAll(item_t2_l1,item_t2_l2);
-//       raiz.getChildren().setAll(tecnico1, tecnico2);
-//       treeTableViewCol1.setCellFactory(new Callback<TreeTableColumn.CellDatafeatures<String, String>,ObservableValue<String>>() { 
-//           @Override
-//            publicObservableValue<String> call(treeTableColumn.CellDataFeatures<String, String> param) {
-//               return new SimpleStringProperty(param.getValue().Value());
-//
-//            }
-//       }
+       
+        
+        
+    }
+    
+    private void loadComboBoxData() throws ClassNotFoundException, SQLException
+    {
+        this.paises = new PaisModel().read();
+        this.estados = new EstadoModel().read();
+        
+        // System.out.println("Aqui");
+        
+        this.cbPais.setItems(FXCollections.observableArrayList(this.paises));
+        //this.cbEstado.setItems(FXCollections.observableArrayList(this.estados));
+        this.cbPais.getSelectionModel().select(30);
+        
+        ArrayList<EstadoModel> estadosSelecionados = new ArrayList<>();
+        
+        this.estados.forEach((estado) -> {       
+            if(estado.getIdPais() == this.cbPais.getSelectionModel().getSelectedItem().getId()){
+                //System.out.println(estado.getNome());
+                estadosSelecionados.add(estado);
+            }
+        });
+        
+        this.cbEstado.setItems(FXCollections.observableArrayList(estadosSelecionados));
+        this.cbEstado.getSelectionModel().selectFirst();
+    }
+    
+    @FXML 
+    void togglePais()
+    {
+        ArrayList<EstadoModel> estadosSelecionados = new ArrayList<>();
+        
+        this.estados.forEach((estado) -> {       
+            if(estado.getIdPais() == this.cbPais.getSelectionModel().getSelectedItem().getId()){
+                //System.out.println(estado.getNome());
+                estadosSelecionados.add(estado);
+            }
+        });
+        
+        this.cbEstado.setItems(FXCollections.observableArrayList(estadosSelecionados));
+        this.cbEstado.getSelectionModel().selectFirst();
     }
 
     @FXML
@@ -196,6 +254,15 @@ public class PrincipalController {
         paneListar.setVisible(true);
         quemChamou = "equipamento";
         System.out.println("Equipamento chamou");
+    }
+    
+    @FXML
+    void btnSairAction() throws ClassNotFoundException, SQLException
+    {   
+         ArrayList<EstadoModel> estados = new EstadoModel().read();
+        estados.forEach((estado) -> {
+            System.out.println("Nome: " + estado.getNome());
+        });  
     }
     
     @FXML
@@ -252,7 +319,7 @@ public class PrincipalController {
         case "tecnico":
             TecnicoModel tecnicoModel = new TecnicoModel();
             tecnicoModel.setNome(txtTecnicoNome.getText());
-            
+
             EnderecoModel enderecoModel = new EnderecoModel();
             enderecoModel.setPais("Brasil");
             enderecoModel.setEstado("SP");
@@ -262,7 +329,7 @@ public class PrincipalController {
             enderecoModel.setNumero("965");
             enderecoModel.create();
             tecnicoModel.setEndereco(enderecoModel); 
-            
+
             ContatoModel contatoModel = new ContatoModel();
             contatoModel.setCelular1("985645745");
             contatoModel.setCelular2("956523587");
@@ -270,25 +337,24 @@ public class PrincipalController {
             contatoModel.setFixo("35632386");
             contatoModel.create();
             tecnicoModel.setContato(contatoModel);
-            
+
             if(tecnicoModel.create()) {
                 System.out.println("Tecnico salvou!");
-            } else
-            {
+            } else {
                 System.out.println("Tecnico não salvou!");
             }
-        paneCadastrar.setVisible(false);
+            paneCadastrar.setVisible(false);
         break;
 
         case "equipamento":
-        paneCadastrarEquipamento.setVisible(false);
-        System.out.println("Equipamento cancelou");
+            paneCadastrarEquipamento.setVisible(false);
+            System.out.println("Equipamento cancelou");
 
         break;
 
         case "fazenda":
-        paneCadastrar.setVisible(false);
-        System.out.println("Empresa cancelou");
+            paneCadastrar.setVisible(false);
+            System.out.println("Empresa cancelou");
         break;
         
         }

@@ -41,8 +41,6 @@ public class TecnicoModel extends lincejava.Lib.PersistModelAbstract
         stmt.setString(2, Integer.toString(contato.getId()));
         stmt.setString(3, Integer.toString(endereco.getId()));
         
-        // return (!stmt.execute()) ? true : false;
-        
         if(!stmt.execute())
             return true;
         else
@@ -80,6 +78,4 @@ public class TecnicoModel extends lincejava.Lib.PersistModelAbstract
     public void setContato(ContatoModel contato) {
         this.contato = contato;
     }
-    
-    
 }

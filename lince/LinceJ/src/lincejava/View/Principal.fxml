@@ -8,9 +8,10 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.effect.Blend?>
@@ -70,7 +71,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="btnSair" mnemonicParsing="false" prefHeight="73.0" prefWidth="96.0">
+                  <Button fx:id="btnSair" mnemonicParsing="false" onAction="#btnSairAction" prefHeight="73.0" prefWidth="96.0">
                      <graphic>
                         <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -91,7 +92,7 @@
                      </children></AnchorPane>
                 <AnchorPane fx:id="AnchorPaneCadastro" minHeight="0.0" minWidth="0.0" prefHeight="826.0" prefWidth="575.0" style="-fx-background-color: #383838;">
                      <children>
-                        <Pane fx:id="paneListar" layoutX="35.0" layoutY="14.0" prefHeight="231.0" prefWidth="483.0" style="-fx-background-color: #FAFAF7;" visible="false">
+                        <Pane fx:id="paneListar" layoutX="35.0" layoutY="14.0" prefHeight="241.0" prefWidth="483.0" style="-fx-background-color: #FAFAF7;">
                            <children>
                               <JFXTextField layoutX="24.0" layoutY="16.0" prefHeight="26.0" prefWidth="236.0" promptText="Digite o nome a ser pesquisado">
                                  <padding>
@@ -101,7 +102,6 @@
                                     <Font size="14.0" />
                                  </font>
                               </JFXTextField>
-                              <ListView layoutX="20.0" layoutY="58.0" prefHeight="159.0" prefWidth="444.0" style="-fx-border-color: #383838;" />
                               <Button fx:id="btnAdicionar" accessibleText="Clique para incluir um ovo registro" layoutX="275.0" layoutY="7.0" minWidth="44.0" mnemonicParsing="false" onAction="#btnAdicionarAction" prefHeight="47.0" prefWidth="44.0">
                                  <graphic>
                                     <ImageView fitHeight="33.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
@@ -139,6 +139,12 @@
                                     <Image url="@../../Icons/CancelCheck2.png" />
                                  </image>
                               </ImageView>
+                              <TableView fx:id="tecnicoTableView" layoutX="20.0" layoutY="67.0" prefHeight="164.0" prefWidth="444.0">
+                                <columns>
+                                  <TableColumn prefWidth="75.0" text="C1" />
+                                  <TableColumn prefWidth="75.0" text="C2" />
+                                </columns>
+                              </TableView>
                            </children>
                         </Pane>
                         <Pane id="cntEditarIncluirTecnico" fx:id="paneCadastrar" layoutX="34.0" layoutY="251.0" prefHeight="352.0" prefWidth="484.0" style="-fx-background-color: #FAFAF7;">
@@ -230,17 +236,12 @@
                                           <Font size="15.0" />
                                        </font>
                                     </Label>
-                                    <JFXComboBox fx:id="cdEstado" focusColor="#ed0f00" prefHeight="29.0" prefWidth="89.0" promptText="Selecione" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                                    <JFXComboBox fx:id="cbEstado" focusColor="#ed0f00" prefHeight="29.0" prefWidth="116.0" promptText="Selecione" GridPane.columnIndex="3" GridPane.rowIndex="5" />
                                     <Label prefHeight="21.0" prefWidth="59.0" text="País" GridPane.columnIndex="5" GridPane.rowIndex="4">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
                                     </Label>
-                                    <JFXTextField fx:id="cdPais" focusColor="#ed0f00" prefHeight="26.0" prefWidth="101.0" promptText="Digite o país" GridPane.columnIndex="5" GridPane.rowIndex="5">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </JFXTextField>
                                     <Label prefHeight="21.0" prefWidth="59.0" text="Telefone" GridPane.rowIndex="6">
                                        <font>
                                           <Font size="15.0" />
@@ -282,6 +283,7 @@
                                        </font>
                                     </Button>
                                     <JFXToggleButton onAction="#toggleTecnicoAtivo" prefHeight="60.0" prefWidth="119.0" selected="true" text="Ativo" unToggleColor="#d70303" GridPane.rowIndex="9" />
+                                    <JFXComboBox fx:id="cbPais" focusColor="#ed0f00" onAction="#togglePais" prefHeight="29.0" prefWidth="133.0" promptText="Selecione" GridPane.columnIndex="5" GridPane.rowIndex="5" />
                                  </children>
                               </GridPane>
                            </children>

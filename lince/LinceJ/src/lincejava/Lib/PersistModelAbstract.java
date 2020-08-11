@@ -18,17 +18,24 @@ import java.sql.SQLException;
  */
 public class PersistModelAbstract 
 {
-    private Connection conexao;
+    private Connection conexao = null;
     
     public PersistModelAbstract() throws ClassNotFoundException, SQLException 
     {
-        loadConnection();   
+        //loadConnection();   
     }
     
-    private void loadConnection() throws ClassNotFoundException, SQLException
+    protected void openConnection() throws ClassNotFoundException, SQLException
     {
-        Class.forName("com.mysql.jdbc.Driver");
-        this.conexao = DriverManager.getConnection("jdbc:mysql://localhost/lince?useSSL=false", "root", "root");
+        Class.forName("com.mysql.jdbc.Driver"); 
+        this.conexao = DriverManager.getConnection("jdbc:mysql://localhost/lince?useSSL=false", "root", "root");     
+    }
+    
+    protected void closeConnection() throws SQLException
+    {
+        if(!this.conexao.isClosed()) {
+            this.conexao.close();
+        }
     }
     
     public Connection getConexao()

@@ -51,15 +51,18 @@ public class ContatoModel extends PersistModelAbstract{
         } 
     }
 
-    public void read() {
+    public void read() 
+    {
 
     }
     
-    public void update() {
+    public void update() 
+    {
         
     }
 
-    public void delete() {
+    public void delete() 
+    {
 
     }
     
