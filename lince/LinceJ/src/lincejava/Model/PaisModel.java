@@ -33,7 +33,6 @@ public class PaisModel extends lincejava.Lib.PersistModelAbstract
  
     public ArrayList read() throws SQLException, ClassNotFoundException
     {
-        this.openConnection();
         String sql = "SELECT * FROM pais";
         
         PreparedStatement stmt = getConexao().prepareStatement(sql);
@@ -48,7 +47,6 @@ public class PaisModel extends lincejava.Lib.PersistModelAbstract
                     results.getString("nome")
             ));
         }
-        this.closeConnection();
         return paises;
     }
     

@@ -37,7 +37,6 @@ public final class EstadoModel extends PersistModelAbstract
     
     public ArrayList read() throws SQLException, ClassNotFoundException
     {
-        this.openConnection();
         String sql = "SELECT * FROM estado";
         PreparedStatement stmt = getConexao().prepareStatement(sql);
         ResultSet results = stmt.executeQuery();
@@ -49,7 +48,6 @@ public final class EstadoModel extends PersistModelAbstract
                     Integer.parseInt(results.getString("id_pais"))
             ));
         }
-        this.closeConnection();
         
         return estados;
     }

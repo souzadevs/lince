@@ -25,21 +25,10 @@ public class PersistModelAbstract
         //loadConnection();   
     }
     
-    protected void openConnection() throws ClassNotFoundException, SQLException
+    public Connection getConexao() throws ClassNotFoundException, SQLException
     {
         Class.forName("com.mysql.jdbc.Driver"); 
-        this.conexao = DriverManager.getConnection("jdbc:mysql://localhost/lince?useSSL=false", "root", "root");     
-    }
-    
-    protected void closeConnection() throws SQLException
-    {
-        if(!this.conexao.isClosed()) {
-            this.conexao.close();
-        }
-    }
-    
-    public Connection getConexao()
-    {
+        this.conexao = DriverManager.getConnection("jdbc:mysql://localhost/lince?useSSL=false", "root", "root");
         return this.conexao;
     }   
 }
