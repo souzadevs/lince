@@ -321,20 +321,20 @@ public class PrincipalController {
             tecnicoModel.setNome(txtTecnicoNome.getText());
 
             EnderecoModel enderecoModel = new EnderecoModel();
-            enderecoModel.setPais("Brasil");
-            enderecoModel.setEstado("SP");
-            enderecoModel.setCidade("Pirassununga");
-            enderecoModel.setBairro("Vila Guilhermina");
-            enderecoModel.setRua("Av. Joaquim Cristóvão");
-            enderecoModel.setNumero("965");
+            enderecoModel.setPais(this.cbPais.getSelectionModel().getSelectedItem());
+            enderecoModel.setEstado(this.cbEstado.getSelectionModel().getSelectedItem());
+            enderecoModel.setCidade(this.txtTecnicoCidade.getText());
+            enderecoModel.setBairro(this.txtTecnicoBairro.getText());
+            enderecoModel.setRua(this.txtTecnicoEndereco.getText());
+            enderecoModel.setNumero(this.txttecnicoNumero.getText());
             enderecoModel.create();
             tecnicoModel.setEndereco(enderecoModel); 
 
             ContatoModel contatoModel = new ContatoModel();
-            contatoModel.setCelular1("985645745");
-            contatoModel.setCelular2("956523587");
-            contatoModel.setEmail("bruno@ig.com");
-            contatoModel.setFixo("35632386");
+            contatoModel.setCelular1(this.txtTecnicoCelular.getText());
+            contatoModel.setCelular2(this.txtTecnicoCelular.getText());
+            contatoModel.setEmail(this.txtTecnicoEmail.getText());
+            contatoModel.setFixo(this.txtTecnicoTelefone.getText());
             contatoModel.create();
             tecnicoModel.setContato(contatoModel);
 
@@ -343,7 +343,8 @@ public class PrincipalController {
             } else {
                 System.out.println("Tecnico não salvou!");
             }
-            paneCadastrar.setVisible(false);
+            
+            // paneCadastrar.setVisible(false);
         break;
 
         case "equipamento":

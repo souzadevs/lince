@@ -21,8 +21,8 @@ public class EnderecoModel extends PersistModelAbstract
     private int id;
 
     
-    private String pais;
-    private String estado;
+    private PaisModel pais;
+    private EstadoModel estado;
     private String cidade;
     private String bairro;
     private String rua;
@@ -35,12 +35,12 @@ public class EnderecoModel extends PersistModelAbstract
     }
     
      public int create() throws SQLException, ClassNotFoundException, Exception {
-        String sql = "INSERT INTO endereco (pais, estado, cidade, bairro, rua, numero) VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO endereco (id_pais, id_estado, cidade, bairro, rua, numero) VALUES (?,?,?,?,?,?)";
         
         PreparedStatement stmt = this.getConexao().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         
-        stmt.setString(1, this.getPais());
-        stmt.setString(2, this.getEstado());
+        stmt.setString(1, String.valueOf(this.getPais().getId()));
+        stmt.setString(2, String.valueOf(this.getEstado().getId()));
         stmt.setString(3, this.getCidade());
         stmt.setString(4, this.getBairro());
         stmt.setString(5, this.getRua());
@@ -82,19 +82,19 @@ public class EnderecoModel extends PersistModelAbstract
         this.id = id;
     }
     
-    public String getPais() {
+    public PaisModel getPais() {
         return pais;
     }
 
-    public void setPais(String pais) {
+    public void setPais(PaisModel pais) {
         this.pais = pais;
     }
 
-    public String getEstado() {
+    public EstadoModel getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(EstadoModel estado) {
         this.estado = estado;
     }
 

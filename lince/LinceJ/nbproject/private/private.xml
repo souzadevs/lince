@@ -3,8 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Java%20Projects/lince/LinceJ/src/lincejava/Model/TecnicoModel.java</file>
+            <file>file:/C:/Java%20Projects/lince/LinceJ/src/lincejava/App/LinceJava.java</file>
+            <file>file:/C:/Java%20Projects/lince/LinceJ/src/lincejava/Model/ContatoModel.java</file>
             <file>file:/C:/Java%20Projects/lince/LinceJ/src/lincejava/Controller/PrincipalController.java</file>
+            <file>file:/C:/Java%20Projects/lince/LinceJ/src/lincejava/Model/EnderecoModel.java</file>
         </group>
     </open-files>
 </project-private>
