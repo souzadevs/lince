@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import lincejava.Lib.PersistModelAbstract;
 
 /**
@@ -28,8 +29,16 @@ public class TecnicoModel extends PersistModelAbstract
     
     public TecnicoModel() throws ClassNotFoundException, SQLException
     {
-        
+        super();
     }
+    
+    public TecnicoModel(String nome, EnderecoModel endereco, ContatoModel contato) throws ClassNotFoundException, SQLException
+    {
+        this.nome = nome;
+        this.endereco = endereco;
+        this.contato = contato;
+    }
+   
     
     public int create() throws ClassNotFoundException, Exception
     {
@@ -55,6 +64,42 @@ public class TecnicoModel extends PersistModelAbstract
         {
             throw new Exception(e);
         } 
+    }
+    
+    public ArrayList read() throws ClassNotFoundException, SQLException
+    {
+        String sql = "SELECT * FROM tecnico";
+        
+        PreparedStatement stmt = this.getConexao().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        
+        ResultSet results = stmt.executeQuery();
+        
+        ArrayList<TecnicoModel> tecnico = new ArrayList<>();
+        
+        TecnicoModel tecnicoModel;
+        ContatoModel contatoModel;
+        EnderecoModel enderecoModel;
+        
+        while(results.next()) {
+             tecnicoModel = new TecnicoModel();
+             
+             tecnicoModel.setId(Integer.parseInt(results.getString("id")));
+             tecnicoModel.setNome(results.getString("nome"));
+             
+             contatoModel = new ContatoModel();
+             contatoModel.setId(Integer.parseInt(results.getString("id_contato")));
+             //Colocar load aqui para carregar todo o contato
+             
+             enderecoModel = new EnderecoModel();
+             enderecoModel.setId(Integer.parseInt(results.getString("id_endereco")));
+             //Colocar load aqui para carrega todo o endereco
+             
+             tecnicoModel.setContato(contatoModel);
+             tecnicoModel.setEndereco(enderecoModel);
+             
+             tecnico.add(tecnicoModel);
+        }
+        return tecnico;
     }
 
     public int getId() {

@@ -50,6 +50,11 @@ public class PaisModel extends lincejava.Lib.PersistModelAbstract
         return paises;
     }
     
+    public void load(int id)
+    {
+        
+    }
+    
     public String toString()
     {
         return this.getNome();

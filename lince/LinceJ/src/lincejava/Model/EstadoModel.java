@@ -65,6 +65,11 @@ public final class EstadoModel extends PersistModelAbstract
         return estados;
     }
     
+    public void load(int id)
+    {
+        
+    }
+    
     /**
      *
      * @return 

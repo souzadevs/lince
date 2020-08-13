@@ -74,6 +74,38 @@ public class EnderecoModel extends PersistModelAbstract
 
     }
     
+    public void load(int id) throws ClassNotFoundException, SQLException
+    {
+        String sql = "SELECT * FROM endereco WHERE id = ?";
+        
+        PreparedStatement stmt = this.getConexao().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+        stmt.setString(1, String.valueOf(id));
+        
+        ResultSet results = stmt.executeQuery();
+        
+        while(results.next()) {
+            PaisModel pais = new PaisModel();
+            pais.load(Integer.parseInt(results.getString("id_pais")));
+            this.setPais(pais);
+            
+            EstadoModel estado = new EstadoModel();
+            estado.load(Integer.parseInt(results.getString("id_estado")));
+            this.setEstado(estado);
+            
+            this.cidade = results.getString("cidade");
+            this.bairro = results.getString("bairro");
+            this.rua = results.getString("rua");
+            this.numero = results.getString("numero");
+            this.complemento = results.getString("complemento");
+            
+            //Load finalizado, falta colocar o load no momento load do tecnico
+            //Também, falta colocar o load do Pais e Estado
+            
+        }
+        
+    }
+    
     public int getId() {
         return id;
     }

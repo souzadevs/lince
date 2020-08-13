@@ -2,28 +2,20 @@ package lincejava.Controller;
 
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeView;
-import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.TreeTableView;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.util.Callback;
 import lincejava.Model.ContatoModel;
 import lincejava.Model.EnderecoModel;
 import lincejava.Model.EstadoModel;
@@ -126,13 +118,19 @@ public class PrincipalController {
     private ToggleGroup Trace;
     
     @FXML 
-    private TableView tecnicoTableView;
+    private TableView<TecnicoModel> tecnicoTableView;
     
     @FXML
     private JFXComboBox<EstadoModel> cbEstado;
     
     @FXML
     private JFXComboBox<PaisModel> cbPais;
+
+    @FXML
+    private TableColumn<TecnicoModel, String> tecnicoTableViewId;
+
+    @FXML
+    private TableColumn<TecnicoModel, String> tecnicoTableViewNome;
     
     
     
@@ -158,7 +156,8 @@ public class PrincipalController {
     @FXML
     void initialize() throws ClassNotFoundException, SQLException
     {
-        loadComboBoxData();
+        //loadComboBoxData();
+        loadTecnicoTableView();
         
         
 //        TreeItem<String> tecnicos = new TreeItem<String>();
@@ -175,13 +174,7 @@ public class PrincipalController {
 //        
 //        AnchorPaneAside.getChildren().add(tecnicoTreeView);
         
-        // Popular tabela de técnico
-        
-        
-        
-       
-        
-        
+        // Popular tabela de técnico  
     }
     
     private void loadComboBoxData() throws ClassNotFoundException, SQLException
@@ -206,6 +199,18 @@ public class PrincipalController {
         
         this.cbEstado.setItems(FXCollections.observableArrayList(estadosSelecionados));
         this.cbEstado.getSelectionModel().selectFirst();
+    }
+    
+    public void loadTecnicoTableView() throws ClassNotFoundException, SQLException
+    {
+        TecnicoModel tecnico = new TecnicoModel();
+        
+        ArrayList<TecnicoModel> resultados = tecnico.read();
+        
+        this.tecnicoTableViewId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        this.tecnicoTableViewNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        
+        this.tecnicoTableView.setItems(FXCollections.observableArrayList(resultados));
     }
     
     @FXML 
@@ -317,8 +322,6 @@ public class PrincipalController {
     switch(this.quemChamou) {
 
         case "tecnico":
-            TecnicoModel tecnicoModel = new TecnicoModel();
-            tecnicoModel.setNome(txtTecnicoNome.getText());
 
             EnderecoModel enderecoModel = new EnderecoModel();
             enderecoModel.setPais(this.cbPais.getSelectionModel().getSelectedItem());
@@ -327,14 +330,18 @@ public class PrincipalController {
             enderecoModel.setBairro(this.txtTecnicoBairro.getText());
             enderecoModel.setRua(this.txtTecnicoEndereco.getText());
             enderecoModel.setNumero(this.txttecnicoNumero.getText());
-            tecnicoModel.setEndereco(enderecoModel); 
 
             ContatoModel contatoModel = new ContatoModel();
             contatoModel.setCelular1(this.txtTecnicoCelular.getText());
             contatoModel.setCelular2(this.txtTecnicoCelular.getText());
             contatoModel.setEmail(this.txtTecnicoEmail.getText());
             contatoModel.setFixo(this.txtTecnicoTelefone.getText());
-            tecnicoModel.setContato(contatoModel);
+
+            TecnicoModel tecnicoModel = new TecnicoModel(
+                    txtTecnicoNome.getText(),
+                    enderecoModel,
+                    contatoModel
+            );
 
             if(tecnicoModel.create() != -1) {
                 System.out.println("Tecnico salvou!");
