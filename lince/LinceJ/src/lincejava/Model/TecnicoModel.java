@@ -6,13 +6,16 @@
 package lincejava.Model;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import lincejava.Lib.PersistModelAbstract;
 
 /**
  *
  * @author Bruno Araujo
  */
-public class TecnicoModel extends lincejava.Lib.PersistModelAbstract
+public class TecnicoModel extends PersistModelAbstract
 {
     //  nome 
     //  id_endereco 
@@ -25,26 +28,33 @@ public class TecnicoModel extends lincejava.Lib.PersistModelAbstract
     
     public TecnicoModel() throws ClassNotFoundException, SQLException
     {
-        super();
+        
     }
     
-    public boolean create() throws ClassNotFoundException, Exception
+    public int create() throws ClassNotFoundException, Exception
     {
-//        Integer idContato = this.contato.create();
-//        Integer idEndereco = this.endereco.create();
+        Integer idContato = this.contato.create();
+        Integer idEndereco = this.endereco.create();
         
         String sql = "INSERT INTO tecnico (nome, id_contato, id_endereco) VALUES (?,?,?)";
         
-        PreparedStatement stmt = this.getConexao().prepareStatement(sql);
+        PreparedStatement stmt = this.getConexao().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         
         stmt.setString(1, this.getNome());
         stmt.setString(2, Integer.toString(contato.getId()));
         stmt.setString(3, Integer.toString(endereco.getId()));
         
-        if(!stmt.execute())
-            return true;
-        else
-            return false;
+        try
+        {
+            stmt.execute();
+            ResultSet lastId = stmt.getGeneratedKeys();
+            lastId.next();
+            this.setId(lastId.getInt(1));
+            return this.getId();
+        } catch(SQLException e)
+        {
+            throw new Exception(e);
+        } 
     }
 
     public int getId() {

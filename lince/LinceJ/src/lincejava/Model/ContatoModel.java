@@ -25,7 +25,7 @@ public class ContatoModel extends PersistModelAbstract{
     
     public ContatoModel() throws ClassNotFoundException, SQLException
     {
-        super();
+        
     }
 
     public int create() throws SQLException, ClassNotFoundException, Exception {

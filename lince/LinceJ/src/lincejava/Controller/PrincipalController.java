@@ -327,7 +327,6 @@ public class PrincipalController {
             enderecoModel.setBairro(this.txtTecnicoBairro.getText());
             enderecoModel.setRua(this.txtTecnicoEndereco.getText());
             enderecoModel.setNumero(this.txttecnicoNumero.getText());
-            enderecoModel.create();
             tecnicoModel.setEndereco(enderecoModel); 
 
             ContatoModel contatoModel = new ContatoModel();
@@ -335,10 +334,9 @@ public class PrincipalController {
             contatoModel.setCelular2(this.txtTecnicoCelular.getText());
             contatoModel.setEmail(this.txtTecnicoEmail.getText());
             contatoModel.setFixo(this.txtTecnicoTelefone.getText());
-            contatoModel.create();
             tecnicoModel.setContato(contatoModel);
 
-            if(tecnicoModel.create()) {
+            if(tecnicoModel.create() != -1) {
                 System.out.println("Tecnico salvou!");
             } else {
                 System.out.println("Tecnico não salvou!");
