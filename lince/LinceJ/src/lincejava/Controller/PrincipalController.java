@@ -222,6 +222,10 @@ public class PrincipalController {
         
         this.cadastroTableView.getItems().clear();
         this.cadastroTableView.getColumns().clear();
+        
+        tcTecnicoId.setPrefWidth(cadastroTableView.getWidth() * 0.2);
+        tcTecnicoNome.setPrefWidth(cadastroTableView.getWidth() * 0.8);
+        
         this.cadastroTableView.getColumns().addAll(tcTecnicoId, tcTecnicoNome);
         
 //        this.tecnicoTableViewId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -244,6 +248,9 @@ public class PrincipalController {
         
         this.cadastroTableView.getItems().clear();
         this.cadastroTableView.getColumns().clear();
+        
+        tcEquipamentoId.setPrefWidth(cadastroTableView.getWidth() * 0.3);
+        tcEquipamentoNome.setPrefWidth(cadastroTableView.getWidth() * 0.7);
         this.cadastroTableView.getColumns().addAll(tcEquipamentoId, tcEquipamentoNome);
         
 //        this.tecnicoTableViewId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -305,6 +312,7 @@ public class PrincipalController {
     @FXML
     void btnTecnicoAction() throws ClassNotFoundException, SQLException 
     {       
+        closePanes();
         paneListar.setVisible(true);
         quemChamou = "tecnico";
         loadTecnicoTableView();
@@ -315,6 +323,7 @@ public class PrincipalController {
     @FXML
     void btnFazendaAction() 
     {       
+        closePanes();
         paneListar.setVisible(true);
         quemChamou = "fazenda";
         System.out.println("Fazenda chamou");
@@ -324,6 +333,7 @@ public class PrincipalController {
     @FXML
     void btnEquipamentoAction() throws ClassNotFoundException, SQLException 
     {       
+        closePanes();
         paneListar.setVisible(true);
         quemChamou = "equipamento";
         loadEquipamentoTableView();
@@ -333,6 +343,7 @@ public class PrincipalController {
     @FXML
     void btnSairAction() throws ClassNotFoundException, SQLException
     {   
+        closePanes();
          ArrayList<EstadoModel> estados = new EstadoModel().read();
         estados.forEach((estado) -> {
             System.out.println("Nome: " + estado.getNome());

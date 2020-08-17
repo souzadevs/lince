@@ -32,9 +32,9 @@
          <top>
             <HBox BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnTecnico" mnemonicParsing="false" onAction="#btnTecnicoAction" prefHeight="78.0" prefWidth="106.0">
+                  <Button fx:id="btnTecnico" mnemonicParsing="false" onAction="#btnTecnicoAction" prefHeight="70.0" prefWidth="100.0">
                      <graphic>
-                        <ImageView fitHeight="66.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="51.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../Icons/Tecnico.png" />
                            </image>
@@ -43,16 +43,16 @@
                            </effect>
                         </ImageView>
                      </graphic></Button>
-                  <Button fx:id="btnFazenda" mnemonicParsing="false" onAction="#btnFazendaAction" prefHeight="70.0" prefWidth="112.0">
+                  <Button fx:id="btnFazenda" mnemonicParsing="false" onAction="#btnFazendaAction" prefHeight="70.0" prefWidth="100.0">
                      <graphic>
-                        <ImageView fitHeight="64.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="61.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../Icons/Farm.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="btnEquipamento" mnemonicParsing="false" onAction="#btnEquipamentoAction" prefHeight="74.0" prefWidth="107.0">
+                  <Button fx:id="btnEquipamento" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnEquipamentoAction" prefHeight="70.0" prefWidth="100.0" HBox.hgrow="SOMETIMES">
                      <graphic>
                         <ImageView fitHeight="61.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -61,7 +61,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="btnConfiguracoes" mnemonicParsing="false" prefHeight="74.0" prefWidth="104.0">
+                  <Button fx:id="btnConfiguracoes" mnemonicParsing="false" prefHeight="70.0" prefWidth="100.0">
                      <graphic>
                         <ImageView fitHeight="59.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -70,9 +70,9 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="btnSair" mnemonicParsing="false" onAction="#btnSairAction" prefHeight="73.0" prefWidth="96.0">
+                  <Button fx:id="btnSair" mnemonicParsing="false" onAction="#btnSairAction" prefHeight="70.0" prefWidth="100.0">
                      <graphic>
-                        <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="53.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../Icons/Log%20Out_48x48.png" />
                            </image>
@@ -87,11 +87,11 @@
               <items>
                 <AnchorPane fx:id="AnchorPaneAside" minHeight="0.0" minWidth="0.0" prefHeight="826.0" prefWidth="72.0">
                      <children>
-                        <JFXTreeView fx:id="tecnicoTreeView" prefHeight="827.0" prefWidth="231.0" />
+                        <JFXTreeView fx:id="tecnicoTreeView" prefHeight="706.0" prefWidth="227.0" />
                      </children></AnchorPane>
                 <AnchorPane fx:id="AnchorPaneCadastro" minHeight="0.0" minWidth="0.0" prefHeight="826.0" prefWidth="575.0" style="-fx-background-color: #383838;">
                      <children>
-                        <Pane fx:id="paneListar" layoutX="35.0" layoutY="14.0" prefHeight="241.0" prefWidth="483.0" style="-fx-background-color: #FAFAF7;">
+                        <Pane fx:id="paneListar" layoutX="10.0" layoutY="10.0" prefHeight="241.0" prefWidth="483.0" style="-fx-background-color: #FAFAF7;" visible="false">
                            <children>
                               <JFXTextField layoutX="24.0" layoutY="16.0" prefHeight="26.0" prefWidth="236.0" promptText="Digite o nome a ser pesquisado">
                                  <padding>
@@ -141,7 +141,7 @@
                               <TableView fx:id="cadastroTableView" layoutX="20.0" layoutY="67.0" prefHeight="164.0" prefWidth="444.0" />
                            </children>
                         </Pane>
-                        <Pane id="cntEditarIncluirTecnico" fx:id="paneCadastrar" layoutX="35.0" layoutY="251.0" prefHeight="352.0" prefWidth="483.0" style="-fx-background-color: #FAFAF7;" visible="false">
+                        <Pane id="cntEditarIncluirTecnico" fx:id="paneCadastrar" layoutX="10.0" layoutY="251.0" prefHeight="352.0" prefWidth="483.0" style="-fx-background-color: #FAFAF7;" visible="false">
                            <children>
                               <GridPane layoutX="30.0" layoutY="25.0" prefHeight="302.0" prefWidth="438.0">
                                  <columnConstraints>
@@ -282,7 +282,7 @@
                               </GridPane>
                            </children>
                         </Pane>
-                        <Pane id="cntEditarIncluirTecnico" fx:id="paneCadastrarEquipamento" layoutX="35.0" layoutY="251.0" prefHeight="352.0" prefWidth="484.0" style="-fx-background-color: #FAFAF7;" visible="false">
+                        <Pane id="cntEditarIncluirTecnico" fx:id="paneCadastrarEquipamento" layoutX="10.0" layoutY="251.0" prefHeight="352.0" prefWidth="484.0" style="-fx-background-color: #FAFAF7;" visible="false">
                            <children>
                               <GridPane hgap="5.0" layoutX="30.0" layoutY="25.0" prefHeight="304.0" prefWidth="398.0">
                                  <columnConstraints>
