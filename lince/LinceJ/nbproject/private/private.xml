@@ -3,11 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Java%20Projects/lince/LinceJ/src/lincejava/Model/PaisModel.java</file>
-            <file>file:/C:/Java%20Projects/lince/LinceJ/src/lincejava/Model/TecnicoModel.java</file>
+            <file>file:/C:/Java%20Projects/lince/LinceJ/src/lincejava/Model/EquipamentoModel.java</file>
             <file>file:/C:/Java%20Projects/lince/LinceJ/src/lincejava/Controller/PrincipalController.java</file>
-            <file>file:/C:/Java%20Projects/lince/LinceJ/src/lincejava/Model/EnderecoModel.java</file>
-            <file>file:/C:/Java%20Projects/lince/LinceJ/src/lincejava/Model/EstadoModel.java</file>
+            <file>file:/C:/Java%20Projects/lince/LinceJ/src/lincejava/View/Principal.fxml</file>
         </group>
     </open-files>
 </project-private>
