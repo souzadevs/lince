@@ -67,6 +67,5 @@ public class ImagemSessaoModel
     public void setLog(String log)
     {
         this.log = log;
-    }
-    
+    } 
 }
