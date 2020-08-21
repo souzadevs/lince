@@ -9,18 +9,18 @@ package lincejava.Model;
  *
  * @author Bruno Araujo
  */
-public class TecnicoSessao
+public class TecnicoSessaoModel
 {   
     private int id;
     private TecnicoModel tecnico;
     private SessaoModel sessao;
 
-    public TecnicoSessao()
+    public TecnicoSessaoModel()
     {
         
     }
     
-    public TecnicoSessao(int id, TecnicoModel tecnico, SessaoModel sessao)
+    public TecnicoSessaoModel(int id, TecnicoModel tecnico, SessaoModel sessao)
     {
         this.id = id;
         this.tecnico = tecnico;
