@@ -185,7 +185,7 @@ public class PrincipalController {
         loadEquipamentoFormData();
     }
     
-    private void loadComboBoxData() throws ClassNotFoundException, SQLException
+    private void loadTecnicoComboBoxData() throws ClassNotFoundException, SQLException
     {
         this.paises = new PaisModel().read();
         this.estados = new EstadoModel().read();
@@ -316,7 +316,7 @@ public class PrincipalController {
         paneListar.setVisible(true);
         quemChamou = "tecnico";
         loadTecnicoTableView();
-        System.out.println("Tecnico chamou");
+        loadTecnicoComboBoxData();
     }
 
     
@@ -326,7 +326,6 @@ public class PrincipalController {
         closePanes();
         paneListar.setVisible(true);
         quemChamou = "fazenda";
-        System.out.println("Fazenda chamou");
     }
     
     
