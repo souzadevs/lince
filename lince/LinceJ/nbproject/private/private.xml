@@ -2,15 +2,15 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Java%20Projects/lince/LinceJ/src/lincejava/Model/EquipamentoModel.java</file>
-            <file>file:/C:/Java%20Projects/lince/LinceJ/src/lincejava/Controller/PrincipalController.java</file>
-            <file>file:/C:/Java%20Projects/lince/LinceJ/src/lincejava/View/Principal.fxml</file>
-        </group>
         <group name="Java"/>
         <group name="Saulo">
             <file>file:/C:/Java%20Projects/lince/LinceJ/src/lincejava/Model/ImagemModel.java</file>
             <file>file:/C:/Java%20Projects/lince/LinceJ/src/lincejava/Model/ImagemSessaoModel.java</file>
+        </group>
+        <group>
+            <file>file:/Users/sauloluz/LinceJ/lince/lince/LinceJ/src/lincejava/Model/ContatoModel.java</file>
+            <file>file:/Users/sauloluz/LinceJ/lince/lince/LinceJ/src/lincejava/Controller/PrincipalController.java</file>
+            <file>file:/Users/sauloluz/LinceJ/lince/lince/LinceJ/src/lincejava/Lib/PersistModelAbstract.java</file>
         </group>
     </open-files>
 </project-private>

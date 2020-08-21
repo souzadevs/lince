@@ -28,7 +28,7 @@ public class PersistModelAbstract
     public Connection getConexao() throws ClassNotFoundException, SQLException
     {
         Class.forName("com.mysql.jdbc.Driver"); 
-        this.conexao = DriverManager.getConnection("jdbc:mysql://localhost/lince?useSSL=false", "root", "root");
+        this.conexao = DriverManager.getConnection("jdbc:mysql://localhost/lince?useSSL=false", "root", "*&ujmyhn");
         return this.conexao;
     }   
 }
