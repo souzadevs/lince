@@ -42,8 +42,8 @@ public class TecnicoModel extends PersistModelAbstract
     
     public int create() throws ClassNotFoundException, Exception
     {
-        Integer idContato = this.contato.create();
-        Integer idEndereco = this.endereco.create();
+        int idContato = this.contato.create();
+        int idEndereco = this.endereco.create();
         
         String sql = "INSERT INTO tecnico (nome, id_contato, id_endereco) VALUES (?,?,?)";
         
