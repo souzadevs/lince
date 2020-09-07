@@ -7,7 +7,7 @@ package lincejava.Lib;
 
 /**
  *
- * @author Bruno Araujo
+ * @author Saulo Luz
  */
 public class Util 
 {

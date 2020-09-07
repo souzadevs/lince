@@ -22,7 +22,6 @@ import lincejava.Model.ContatoModel;
 import lincejava.Model.EnderecoModel;
 import lincejava.Model.EquipamentoModel;
 import lincejava.Model.EstadoModel;
-import lincejava.Model.Model;
 import lincejava.Model.PaisModel;
 import lincejava.Model.TecnicoModel;
 
@@ -50,25 +49,16 @@ public class PrincipalController {
     private JFXTreeView<?> tecnicoTreeView;
 
     @FXML
-    private AnchorPane AnchorPaneCadastro;
+    private Pane paneTecnico;
 
     @FXML
-    private Pane paneListar;
-
+    private Pane paneEquipamento;
+    
     @FXML
-    private Button btnAdicionar;
-
-    @FXML
-    private Button btnExcluir1;
-
-    @FXML
-    private Button btnEditar1;
+    private Button btnAdicionarTecnico;
 
     @FXML
     private ImageView btnFechaPanePesquisar;
-
-    @FXML
-    private Pane paneCadastrar;
 
     @FXML
     private JFXTextField txtTecnicoNome;
@@ -104,16 +94,16 @@ public class PrincipalController {
     private JFXTextField txtTecnicoEmail;
 
     @FXML
-    private Button btnSalvarCadastro;
+    private Button btnSalvarTecnico;
 
     @FXML
-    private Button btnCancelarCadastro;
+    private Button btnCancelarTecnico;
 
     @FXML
-    private Pane paneCadastrarEquipamento;
-
+    private Button btnSalvarEquipamento;
+    
     @FXML
-    private Button btnCancelarCadastro1;
+    private Button btnCancelarEquipamento;
 
     @FXML
     private Pane paneImagem;
@@ -122,8 +112,11 @@ public class PrincipalController {
     private ToggleGroup Trace;
     
     @FXML 
-    private TableView<Object> cadastroTableView;
+    private TableView<TecnicoModel> tecnicoTableView;
     
+    @FXML 
+    private TableView<EquipamentoModel> equipamentoTableView;
+      
     @FXML
     private JFXComboBox<EstadoModel> cbEstado;
     
@@ -157,11 +150,7 @@ public class PrincipalController {
     @FXML
     private JFXTextField txtEquipamentoEixoY;
 
-    
-    
-    
-  // Variáveis gerais 
-    private String quemChamou = "";
+   
     
     private ArrayList<PaisModel> paises;
     private ArrayList<EstadoModel> estados;
@@ -221,19 +210,15 @@ public class PrincipalController {
         TableColumn<TecnicoModel, String> tcTecnicoNome = new TableColumn("NOME");
         tcTecnicoNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         
-        this.cadastroTableView.getItems().clear();
-        this.cadastroTableView.getColumns().clear();
+        this.tecnicoTableView.getItems().clear();
+        this.tecnicoTableView.getColumns().clear();
         
-        tcTecnicoId.setPrefWidth(cadastroTableView.getWidth() * 0.2);
-        tcTecnicoNome.setPrefWidth(cadastroTableView.getWidth() * 0.8);
+        tcTecnicoId.setPrefWidth(tecnicoTableView.getWidth() * 0.2);
+        tcTecnicoNome.setPrefWidth(tecnicoTableView.getWidth() * 0.8);
         
-        this.cadastroTableView.getColumns().addAll(tcTecnicoId, tcTecnicoNome);
+        this.tecnicoTableView.getColumns().addAll(tcTecnicoId, tcTecnicoNome);
         
-//        this.tecnicoTableViewId.setCellValueFactory(new PropertyValueFactory<>("id"));
-//        this.tecnicoTableViewNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        
-        
-        this.cadastroTableView.setItems(FXCollections.observableArrayList(resultados));
+        this.tecnicoTableView.setItems(FXCollections.observableArrayList(resultados));
     }
     
     public void loadEquipamentoTableView() throws ClassNotFoundException, SQLException
@@ -246,27 +231,28 @@ public class PrincipalController {
         
         TableColumn<EquipamentoModel, String> tcEquipamentoNome = new TableColumn("DESCRIÇÃO");
         tcEquipamentoNome.setCellValueFactory(new PropertyValueFactory<>("descricao"));
-
-        this.cadastroTableView = new TableView<>();
-        this.cadastroTableView.getItems().clear();
-        this.cadastroTableView.getColumns().clear();
+//<<<<<<< HEAD
+//
+//        this.cadastroTableView = new TableView<>();
+//        this.cadastroTableView.getItems().clear();
+//        this.cadastroTableView.getColumns().clear();
+//=======
         
-        tcEquipamentoId.setPrefWidth(cadastroTableView.getWidth() * 0.3);
-        tcEquipamentoNome.setPrefWidth(cadastroTableView.getWidth() * 0.7);
-        this.cadastroTableView.getColumns().addAll(tcEquipamentoId, tcEquipamentoNome);
+        this.equipamentoTableView.getItems().clear();
+        this.equipamentoTableView.getColumns().clear();
         
-//        this.tecnicoTableViewId.setCellValueFactory(new PropertyValueFactory<>("id"));
-//        this.tecnicoTableViewNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        
-        
-        this.cadastroTableView.setItems(FXCollections.observableArrayList(resultados));
+        tcEquipamentoId.setPrefWidth(equipamentoTableView.getWidth() * 0.3);
+        tcEquipamentoNome.setPrefWidth(equipamentoTableView.getWidth() * 0.7);
+        //this.cadastroTableView.getColumns().addAll(tcEquipamentoId, tcEquipamentoNome);
+         
+        this.equipamentoTableView.setItems(FXCollections.observableArrayList(resultados));
     }
     
     public void loadEquipamentoFormData()
     {
         ArrayList<String> sinal = new ArrayList<>();
-        sinal.add("Eletromagnético");
-        sinal.add("Infra-vermelho");
+        sinal.add("Pal-M");
+        sinal.add("NTSC");
         
         this.cbEquipamentoSinal.setItems(FXCollections.observableArrayList(sinal));
     }
@@ -274,9 +260,9 @@ public class PrincipalController {
     public void closePanes()
     {
         List<Parent> panes = new ArrayList<>();
-        panes.add(this.paneCadastrar);
-        panes.add(this.paneCadastrarEquipamento);
-        panes.add(this.paneListar);
+        panes.add(this.paneTecnico);
+        panes.add(this.paneEquipamento);
+        //panes.add(this.paneListar);
         
         panes.forEach(cnsmr -> {
             cnsmr.setVisible(false);
@@ -315,8 +301,7 @@ public class PrincipalController {
     void btnTecnicoAction() throws ClassNotFoundException, SQLException 
     {       
         closePanes();
-        paneListar.setVisible(true);
-        quemChamou = "tecnico";
+        paneTecnico.setVisible(true);
         loadTecnicoTableView();
         loadTecnicoComboBoxData();
     }
@@ -326,8 +311,41 @@ public class PrincipalController {
     void btnFazendaAction() 
     {       
         closePanes();
-        paneListar.setVisible(true);
-        quemChamou = "fazenda";
+        //paneListar.setVisible(true);
+    }
+    
+        
+    @FXML
+    private void btnAdicionarTecnicoAction() {
+    
+       this.btnAdicionarTecnico.setDisable(false);
+       this.btnCancelarTecnico.setDisable(false);
+    }
+    
+    
+    @FXML
+    private void btnAdicionarEquipamentoAction() {
+    
+       this.btnSalvarEquipamento.setDisable(false);
+       this.btnCancelarEquipamento.setDisable(false);
+       
+    }
+    
+    
+    @FXML
+    private void btnCancelarTecnicoAction() {
+    
+       this.btnAdicionarTecnico.setDisable(false);
+       this.btnCancelarTecnico.setDisable(false);
+    }
+    
+    
+    @FXML
+    private void btnCancelarEquipamentoAction() {
+    
+       this.btnSalvarEquipamento.setDisable(false);
+       this.btnCancelarEquipamento.setDisable(false);
+       
     }
     
     
@@ -335,8 +353,7 @@ public class PrincipalController {
     void btnEquipamentoAction() throws ClassNotFoundException, SQLException 
     {       
         closePanes();
-        paneListar.setVisible(true);
-        quemChamou = "equipamento";
+        paneEquipamento.setVisible(true);
         loadEquipamentoTableView();
         System.out.println("Equipamento chamou");
     }
@@ -351,59 +368,9 @@ public class PrincipalController {
         });  
     }
     
-    @FXML
-    void btnAdicionarAction() {
-        
-        switch(this.quemChamou) {
-
-        case "tecnico":
-        paneCadastrar.setVisible(true);
-        System.out.println("Tecnico chamou");
-        break;
-
-        case "equipamento":
-        paneCadastrarEquipamento.setVisible(true);
-        System.out.println("Equipamento chamou");
-        break;
-
-        case "fazenda":
-        paneCadastrar.setVisible(true);
-        System.out.println("Empresa chamou");
-        break;
-        
-        }    
-    }
-
-    @FXML
-    void btnCancelarCadastroAction() {
-        
-    switch(this.quemChamou) {
-
-        case "tecnico":
-        paneCadastrar.setVisible(false);
-        System.out.println("Tecnico cancelou");
-        break;
-
-        case "equipamento":
-        paneCadastrarEquipamento.setVisible(false);
-        System.out.println("Equipamento cancelou");
-
-        break;
-
-        case "fazenda":
-        paneCadastrar.setVisible(false);
-        System.out.println("Empresa cancelou");
-        break;
-        }
-    }
     
     @FXML
-    void btnSalvarCadastroAction() throws ClassNotFoundException, SQLException, Exception {
-    System.out.println(this.quemChamou);
-    switch(this.quemChamou) {
-
-        case "tecnico":
-
+    void btnSalvarTecnicoAction() throws ClassNotFoundException, SQLException, Exception {
             EnderecoModel enderecoModel = new EnderecoModel();
             enderecoModel.setPais(this.cbPais.getSelectionModel().getSelectedItem());
             enderecoModel.setEstado(this.cbEstado.getSelectionModel().getSelectedItem());
@@ -425,16 +392,20 @@ public class PrincipalController {
             );
 
             if(tecnicoModel.create() != -1) {
+                loadTecnicoTableView();
                 System.out.println("Tecnico salvou!");
+                
             } else {
                 System.out.println("Tecnico não salvou!");
             }
             
-            // paneCadastrar.setVisible(false);
-        break;
+    }
 
-        case "equipamento":
-            
+        
+     @FXML
+    void btnSalvarEquipamento() throws ClassNotFoundException, SQLException, Exception {
+        
+
             EquipamentoModel eqpt = new EquipamentoModel(
                     0,
                     this.txtEquipamentoDescricao.getText(),
@@ -457,17 +428,13 @@ public class PrincipalController {
             lst.forEach(eqp -> {
                 System.out.println(eqp.getDescricao());
             });
-            
-            System.out.println("Equipamento cancelou");
+    }
 
-        break;
-
-        case "fazenda":
-            paneCadastrar.setVisible(false);
+     @FXML
+    void btnSalvarFazenda() throws ClassNotFoundException, SQLException, Exception {
+            //paneCadastrar.setVisible(false);
             System.out.println("Empresa cancelou");
-        break;
-        
-        }
+
     }
 }
 
