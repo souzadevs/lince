@@ -38,6 +38,8 @@ public class TecnicoModel extends PersistModelAbstract
         this.endereco = endereco;
         this.contato = contato;
     }
+    
+    public void any(){}
    
     
     public int create() throws ClassNotFoundException, Exception

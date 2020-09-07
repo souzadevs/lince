@@ -22,6 +22,7 @@ import lincejava.Model.ContatoModel;
 import lincejava.Model.EnderecoModel;
 import lincejava.Model.EquipamentoModel;
 import lincejava.Model.EstadoModel;
+import lincejava.Model.Model;
 import lincejava.Model.PaisModel;
 import lincejava.Model.TecnicoModel;
 
@@ -121,7 +122,7 @@ public class PrincipalController {
     private ToggleGroup Trace;
     
     @FXML 
-    private TableView<TecnicoModel> cadastroTableView;
+    private TableView<Object> cadastroTableView;
     
     @FXML
     private JFXComboBox<EstadoModel> cbEstado;
@@ -238,14 +239,15 @@ public class PrincipalController {
     public void loadEquipamentoTableView() throws ClassNotFoundException, SQLException
     {
         EquipamentoModel equipamento = new EquipamentoModel();
-        ArrayList<TecnicoModel> resultados = equipamento.read();
+        ArrayList<EquipamentoModel> resultados = equipamento.read();
         
-        TableColumn<TecnicoModel, String> tcEquipamentoId = new TableColumn("ID");
+        TableColumn<EquipamentoModel, String> tcEquipamentoId = new TableColumn("ID");
         tcEquipamentoId.setCellValueFactory(new PropertyValueFactory<>("id"));
         
-        TableColumn<TecnicoModel, String> tcEquipamentoNome = new TableColumn("DESCRIÇÃO");
+        TableColumn<EquipamentoModel, String> tcEquipamentoNome = new TableColumn("DESCRIÇÃO");
         tcEquipamentoNome.setCellValueFactory(new PropertyValueFactory<>("descricao"));
-        
+
+        this.cadastroTableView = new TableView<>();
         this.cadastroTableView.getItems().clear();
         this.cadastroTableView.getColumns().clear();
         

@@ -43,6 +43,8 @@ public class EquipamentoModel extends PersistModelAbstract
         this.setEscalaY(escalaY);
     }
     
+    public void any(){}
+    
     public int create() throws SQLException, ClassNotFoundException, Exception {
         String sql = "INSERT INTO equipamento (descricao, marca, modelo, tipo_sinal, escala_x, escala_y) VALUES (?,?,?,?,?,?)";
         
