@@ -21,8 +21,7 @@ public final class EstadoModel extends PersistModelAbstract
     private String nome;
     private int idPais;
 
-    
-    
+   
     public EstadoModel() throws ClassNotFoundException, SQLException
     {
         super();

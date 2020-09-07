@@ -403,7 +403,7 @@ public class PrincipalController {
 
         
      @FXML
-    void btnSalvarEquipamento() throws ClassNotFoundException, SQLException, Exception {
+    void btnSalvarEquipamentoAction() throws ClassNotFoundException, SQLException, Exception {
         
 
             EquipamentoModel eqpt = new EquipamentoModel(

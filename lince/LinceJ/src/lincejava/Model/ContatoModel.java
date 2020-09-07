@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -26,6 +27,14 @@ public class ContatoModel extends PersistModelAbstract{
     public ContatoModel() throws ClassNotFoundException, SQLException
     {
         
+    }
+
+    public ContatoModel(int id, String fixo, String celular1, String celular2, String email) throws ClassNotFoundException, SQLException {
+        this.id = id;
+        this.fixo = fixo;
+        this.celular1 = celular1;
+        this.celular2 = celular2;
+        this.email = email;
     }
 
     public int create() throws SQLException, ClassNotFoundException, Exception {
@@ -51,9 +60,23 @@ public class ContatoModel extends PersistModelAbstract{
         } 
     }
 
-    public void read() 
+    public void load() throws ClassNotFoundException, SQLException 
     {
-
+        String query = "SELECT * FROM contato WHERE id = ?";
+        PreparedStatement stmt = this.getConexao().prepareStatement(query);
+        
+        stmt.setString(1, String.valueOf(this.getId()));
+        
+        // ArrayList<ContatoModel> contatos = new ArrayList<>();
+        
+        ResultSet results = stmt.executeQuery();
+        while(results.next()) {
+            this.setId(Integer.parseInt(results.getString("id")));
+            this.setFixo(results.getString("fixo"));
+            this.setCelular1(results.getString("celular1"));
+            this.setCelular2(results.getString("celular2"));
+            this.setEmail(results.getString("email"));
+        }
     }
     
     public void update() 
@@ -81,9 +104,7 @@ public class ContatoModel extends PersistModelAbstract{
     public void setCelular2(String celular2) {
         this.celular2 = celular2;
     }
-
     
-
     public int getId() {
         return id;
     }
@@ -107,5 +128,4 @@ public class ContatoModel extends PersistModelAbstract{
     public void setEmail(String email) {
         this.email = email;
     }
-
 }
