@@ -19,8 +19,7 @@ public class ContatoModel extends PersistModelAbstract{
 
     private int id;
     private String fixo;
-    private String celular1;
-    private String celular2;
+    private String celular;
     private String email;
     
     public ContatoModel() throws ClassNotFoundException, SQLException
@@ -29,14 +28,13 @@ public class ContatoModel extends PersistModelAbstract{
     }
 
     public int create() throws SQLException, ClassNotFoundException, Exception {
-        String sql = "INSERT INTO contato (fixo, celular_1, celular_2, email) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO contato (fixo, celular,  email) VALUES (?,?,?)";
         
         PreparedStatement stmt = this.getConexao().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         
         stmt.setString(1, this.getFixo());
-        stmt.setString(2, this.getCelular1());
-        stmt.setString(3, this.getCelular2());
-        stmt.setString(4, this.getEmail());
+        stmt.setString(2, this.getCelular());
+        stmt.setString(3, this.getEmail());
         
         try
         {
@@ -66,23 +64,13 @@ public class ContatoModel extends PersistModelAbstract{
 
     }
     
-    public String getCelular1() {
-        return celular1;
+    public String getCelular() {
+        return celular;
     }
 
-    public void setCelular1(String celular1) {
-        this.celular1 = celular1;
+    public void setCelular(String celular) {
+        this.celular = celular;
     }
-
-    public String getCelular2() {
-        return celular2;
-    }
-
-    public void setCelular2(String celular2) {
-        this.celular2 = celular2;
-    }
-
-    
 
     public int getId() {
         return id;

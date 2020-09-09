@@ -12,9 +12,7 @@ import java.sql.SQLException;
 /**
  *
  * @author Bruno Apublic static void Teste()
-    {
-        
-    }raujo
+
  */
 public class PersistModelAbstract 
 {

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package lincejava.Model;
 
 import java.sql.PreparedStatement;
@@ -12,14 +8,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import lincejava.Lib.PersistModelAbstract;
 
-/**
- *
- * @author Bruno Araujo
- */
+
 public class EquipamentoModel extends PersistModelAbstract
 {
     private int id;
     private String descricao;
+    private String numero_serie;
     private String marca;
     private String modelo;
     private String tipoSinal;
@@ -32,10 +26,11 @@ public class EquipamentoModel extends PersistModelAbstract
         super();
     }
     
-    public EquipamentoModel(int id, String descricao, String marca, String modelo, String tipoSinal, String escalaX, String escalaY) throws ClassNotFoundException, SQLException
+    public EquipamentoModel(int id, String descricao, String numero_serie, String marca, String modelo, String tipoSinal, String escalaX, String escalaY) throws ClassNotFoundException, SQLException
     {
         this.setId(id);
         this.setDescricao(descricao);
+        this.setNumeroSerie(numero_serie);
         this.setMarca(marca);
         this.setModelo(modelo);
         this.setTipoSinal(tipoSinal);
@@ -44,16 +39,17 @@ public class EquipamentoModel extends PersistModelAbstract
     }
     
     public int create() throws SQLException, ClassNotFoundException, Exception {
-        String sql = "INSERT INTO equipamento (descricao, marca, modelo, tipo_sinal, escala_x, escala_y) VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO equipamento (descricao, numero_serie, marca, modelo, tipo_sinal, escala_x, escala_y) VALUES (?,?,?,?,?,?,?)";
         
         PreparedStatement stmt = this.getConexao().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         
         stmt.setString(1, this.getDescricao());
-        stmt.setString(2, this.getMarca());
-        stmt.setString(3, this.getModelo());
-        stmt.setString(4, this.getTipoSinal());
-        stmt.setString(5, this.getEscalaX());
-        stmt.setString(6, this.getEscalaY());
+        stmt.setString(2, this.getNumeroSerie());
+        stmt.setString(3, this.getMarca());
+        stmt.setString(4, this.getModelo());
+        stmt.setString(5, this.getTipoSinal());
+        stmt.setString(6, this.getEscalaX());
+        stmt.setString(7, this.getEscalaY());
         
         try
         {
@@ -79,6 +75,7 @@ public class EquipamentoModel extends PersistModelAbstract
             equipamentos.add(new EquipamentoModel(
                     Integer.parseInt(results.getString("id")),
                     results.getString("descricao"),
+                    results.getString("numero_serie"),
                     results.getString("marca"),
                     results.getString("modelo"),
                     results.getString("tipo_sinal"),
@@ -107,6 +104,14 @@ public class EquipamentoModel extends PersistModelAbstract
         this.descricao = descricao;
     }
 
+    public String getNumeroSerie() {
+        return numero_serie;
+    }
+
+    public void setNumeroSerie(String numero_serie) {
+        this.numero_serie = numero_serie;
+    }
+    
     public String getMarca() {
         return marca;
     }

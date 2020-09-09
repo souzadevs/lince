@@ -43,7 +43,7 @@
                            </effect>
                         </ImageView>
                      </graphic></Button>
-                  <Button fx:id="btnFazenda" mnemonicParsing="false" onAction="#btnFazendaAction" prefHeight="70.0" prefWidth="100.0">
+                  <Button fx:id="btnEmpresa" mnemonicParsing="false" onAction="#btnEmpresaAction" prefHeight="70.0" prefWidth="100.0">
                      <graphic>
                         <ImageView fitHeight="61.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -91,7 +91,7 @@
                      </children></AnchorPane>
                 <AnchorPane fx:id="AnchorPaneCadastro" minHeight="0.0" minWidth="0.0" prefHeight="826.0" prefWidth="575.0" style="-fx-background-color: #383838;">
                      <children>
-                        <Pane fx:id="paneTecnico" layoutX="10.0" layoutY="10.0" prefHeight="571.0" prefWidth="483.0" style="-fx-background-color: #FAFAF7;" visible="false">
+                        <Pane fx:id="paneTecnico" layoutX="10.0" layoutY="10.0" prefHeight="565.0" prefWidth="483.0" style="-fx-background-color: #FAFAF7;" visible="false">
                            <children>
                               <JFXTextField layoutX="24.0" layoutY="16.0" prefHeight="26.0" prefWidth="236.0" promptText="Digite o nome a ser pesquisado">
                                  <padding>
@@ -110,7 +110,7 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button fx:id="btnExcluir1" layoutX="383.0" layoutY="7.0" minWidth="45.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="45.0">
+                              <Button fx:id="btnExcluirTecnico" layoutX="383.0" layoutY="7.0" minWidth="45.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="45.0">
                                  <graphic>
                                     <ImageView fitHeight="37.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -124,7 +124,7 @@
                                     <Image url="@../../../Icons/Search.png" />
                                  </image>
                               </ImageView>
-                              <Button fx:id="btnEditar1" layoutX="330.0" layoutY="7.0" minWidth="45.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="45.0">
+                              <Button fx:id="btnEditarTecnico" layoutX="330.0" layoutY="7.0" minWidth="45.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="45.0">
                                  <graphic>
                                     <ImageView fitHeight="37.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -133,7 +133,7 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <ImageView fx:id="btnFechaPanePesquisar" fitHeight="25.0" fitWidth="23.0" layoutX="457.0" layoutY="2.0" onMouseClicked="#btnFecharJanelas" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="btnFecharPaneTecnico" fitHeight="25.0" fitWidth="23.0" layoutX="457.0" layoutY="2.0" onMouseClicked="#btnFecharJanelas" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../Icons/CancelCheck2.png" />
                                  </image>
@@ -221,13 +221,13 @@
                                           <Font size="14.0" />
                                        </font>
                                     </JFXTextField>
-                                    <Label prefHeight="21.0" prefWidth="59.0" text="Estado" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                                    <Label prefHeight="21.0" prefWidth="59.0" text="Estado" GridPane.columnIndex="5" GridPane.rowIndex="4">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
                                     </Label>
-                                    <JFXComboBox fx:id="cbEstado" focusColor="#ed0f00" prefHeight="29.0" prefWidth="116.0" promptText="Selecione" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-                                    <Label prefHeight="21.0" prefWidth="59.0" text="País" GridPane.columnIndex="5" GridPane.rowIndex="4">
+                                    <JFXComboBox fx:id="cbTecnicoEstado" focusColor="#ed0f00" prefHeight="29.0" prefWidth="116.0" promptText="Selecione" GridPane.columnIndex="5" GridPane.rowIndex="5" />
+                                    <Label prefHeight="21.0" prefWidth="59.0" text="País" GridPane.columnIndex="3" GridPane.rowIndex="4">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
@@ -273,7 +273,341 @@
                                        </font>
                                     </Button>
                                     <JFXToggleButton onAction="#toggleTecnicoAtivo" prefHeight="60.0" prefWidth="119.0" selected="true" text="Ativo" unToggleColor="#d70303" GridPane.rowIndex="9" />
-                                    <JFXComboBox fx:id="cbPais" focusColor="#ed0f00" onAction="#togglePais" prefHeight="29.0" prefWidth="133.0" promptText="Selecione" GridPane.columnIndex="5" GridPane.rowIndex="5" />
+                                    <JFXComboBox fx:id="cbTecnicoPais" focusColor="#ed0f00" onAction="#toggleTecnicoPais" prefHeight="29.0" prefWidth="133.0" promptText="Selecione" visible="false" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </Pane>
+                        <Pane fx:id="paneEmpresa" layoutX="20.0" layoutY="20.0" prefHeight="571.0" prefWidth="483.0" style="-fx-background-color: #FAFAF7;" visible="false">
+                           <children>
+                              <JFXTextField fx:id="txtFazendaPesquisar" layoutX="24.0" layoutY="16.0" prefHeight="26.0" prefWidth="236.0" promptText="Digite o nome a ser pesquisado">
+                                 <padding>
+                                    <Insets left="20.0" top="10.0" />
+                                 </padding>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </JFXTextField>
+                              <Button fx:id="btnAdicionarFazenda" accessibleText="Clique para incluir um ovo registro" layoutX="275.0" layoutY="7.0" minWidth="44.0" mnemonicParsing="false" onAction="#btnAdicionarTecnicoAction" prefHeight="47.0" prefWidth="44.0">
+                                 <graphic>
+                                    <ImageView fitHeight="33.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../Icons/Add.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="btnExcluirFazenda" layoutX="383.0" layoutY="7.0" minWidth="45.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="45.0">
+                                 <graphic>
+                                    <ImageView fitHeight="37.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../Icons/Trash2.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <ImageView fitHeight="23.0" fitWidth="24.0" layoutX="9.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../Icons/Search.png" />
+                                 </image>
+                              </ImageView>
+                              <Button fx:id="btnEditarFazenda" layoutX="330.0" layoutY="7.0" minWidth="45.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="45.0">
+                                 <graphic>
+                                    <ImageView fitHeight="37.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../Icons/edit.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <ImageView fx:id="btnFazendaFechar" fitHeight="25.0" fitWidth="23.0" layoutX="457.0" layoutY="2.0" onMouseClicked="#btnFecharJanelas" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../Icons/CancelCheck2.png" />
+                                 </image>
+                              </ImageView>
+                              <TableView fx:id="empresaTableView" layoutX="20.0" layoutY="67.0" prefHeight="164.0" prefWidth="444.0" />
+                              <GridPane layoutX="24.0" layoutY="244.0" prefHeight="302.0" prefWidth="438.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="139.0" minWidth="10.0" prefWidth="133.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="80.0" minWidth="10.0" prefWidth="35.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="110.0" minWidth="10.0" prefWidth="18.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="110.0" minWidth="10.0" prefWidth="109.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="93.0" minWidth="10.0" prefWidth="22.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="139.0" minWidth="10.0" prefWidth="139.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label prefHeight="21.0" prefWidth="52.0" text="Nome*">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <JFXTextField fx:id="txtEmpresaNome" focusColor="#ed0f00" prefHeight="26.0" prefWidth="238.0" promptText="Digite o nome" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </JFXTextField>
+                                    <Label prefHeight="21.0" prefWidth="59.0" text="ID*" GridPane.columnIndex="3">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <JFXTextField fx:id="txtEmpresaID" focusColor="#ed0f00" prefHeight="26.0" prefWidth="184.0" promptText="CNPJ para brasieiros" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </JFXTextField>
+                                    <Label prefHeight="21.0" prefWidth="74.0" text="Endereço" GridPane.rowIndex="2">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <JFXTextField fx:id="txtEmpresaEndereco" focusColor="#ed0f00" prefHeight="26.0" prefWidth="239.0" promptText="Digite o endereço" GridPane.columnSpan="2" GridPane.rowIndex="3">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </JFXTextField>
+                                    <Label prefHeight="21.0" prefWidth="59.0" text="Número" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <JFXTextField fx:id="txtEmpresaNumero" focusColor="#ed0f00" prefHeight="26.0" prefWidth="73.0" promptText="Numero" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </JFXTextField>
+                                    <Label prefHeight="21.0" prefWidth="59.0" text="Bairro" GridPane.columnIndex="5" GridPane.rowIndex="2">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <JFXTextField fx:id="txtEmpresaBairro" focusColor="#ed0f00" prefHeight="26.0" prefWidth="103.0" promptText="Digite o bairro" GridPane.columnIndex="5" GridPane.rowIndex="3">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </JFXTextField>
+                                    <Label prefHeight="21.0" prefWidth="59.0" text="Cidade" GridPane.rowIndex="4">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <JFXTextField fx:id="txtEmpresaCidade" focusColor="#ed0f00" prefHeight="26.0" prefWidth="237.0" promptText="Digite a cidade" GridPane.columnSpan="2" GridPane.rowIndex="5">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </JFXTextField>
+                                    <Label prefHeight="21.0" prefWidth="59.0" text="Estado" GridPane.columnIndex="5" GridPane.rowIndex="4">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <JFXComboBox fx:id="cbEmpresaEstado" focusColor="#ed0f00" prefHeight="29.0" prefWidth="116.0" promptText="Selecione" GridPane.columnIndex="5" GridPane.rowIndex="5" />
+                                    <Label prefHeight="21.0" prefWidth="59.0" text="País" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label prefHeight="21.0" prefWidth="59.0" text="Telefone" GridPane.rowIndex="6">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <JFXTextField fx:id="txtEmpresaTelefone" focusColor="#ed0f00" prefHeight="29.0" prefWidth="117.0" promptText="Digite o telefone" style="-fx-border-insets: #383838;" GridPane.rowIndex="7">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </JFXTextField>
+                                    <Label prefHeight="21.0" prefWidth="72.0" text="Celular" GridPane.columnIndex="3" GridPane.rowIndex="6">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <JFXTextField fx:id="txtEmpresaCelular" focusColor="#ed0f00" prefHeight="26.0" prefWidth="135.0" promptText="Digite o celular" GridPane.columnIndex="3" GridPane.rowIndex="7">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </JFXTextField>
+                                    <Label prefHeight="21.0" prefWidth="72.0" text="E-mail" GridPane.columnIndex="5" GridPane.rowIndex="6">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <JFXTextField fx:id="txtEmpresaEmail" focusColor="#ed0f00" prefHeight="29.0" prefWidth="166.0" promptText="Digite o e-mail" GridPane.columnIndex="5" GridPane.rowIndex="7">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </JFXTextField>
+                                    <Button fx:id="btnSalvarEmpresa" minWidth="53.0" mnemonicParsing="false" onAction="#btnSalvarEmpresaAction" prefHeight="47.0" prefWidth="109.0" style="-fx-background-color: #0099FF;" text="Salvar" GridPane.columnIndex="5" GridPane.rowIndex="9">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Button>
+                                    <Button fx:id="btnCancelarEmpresa" minWidth="53.0" mnemonicParsing="false" onAction="#btnCancelarEmpresaAction" prefHeight="47.0" prefWidth="108.0" style="-fx-background-color: #212121;" text="Cancelar" textFill="#fcf9f9" GridPane.columnIndex="3" GridPane.rowIndex="9">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Button>
+                                    <JFXToggleButton fx:id="tgEmpresaAtivo" prefHeight="60.0" prefWidth="119.0" selected="true" text="Ativo" unToggleColor="#d70303" GridPane.rowIndex="9" />
+                                    <JFXComboBox fx:id="cbEmpresaPais" focusColor="#ed0f00" onAction="#toggleEmpresaPais" prefHeight="29.0" prefWidth="133.0" promptText="Selecione" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </Pane>
+                        <Pane fx:id="paneEquipamento" layoutX="20.0" layoutY="20.0" prefHeight="595.0" prefWidth="486.0" style="-fx-background-color: #FAFAF7;" visible="false">
+                           <children>
+                              <JFXTextField layoutX="24.0" layoutY="16.0" prefHeight="26.0" prefWidth="236.0" promptText="Digite o nome a ser pesquisado">
+                                 <padding>
+                                    <Insets left="20.0" top="10.0" />
+                                 </padding>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </JFXTextField>
+                              <Button fx:id="btnAdicionarEquipamento" accessibleText="Clique para incluir um ovo registro" layoutX="275.0" layoutY="7.0" minWidth="44.0" mnemonicParsing="false" onAction="#btnAdicionarEquipamentoAction" prefHeight="47.0" prefWidth="44.0">
+                                 <graphic>
+                                    <ImageView fitHeight="33.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../Icons/Add.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="btnExcluir11" layoutX="383.0" layoutY="7.0" minWidth="45.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="45.0">
+                                 <graphic>
+                                    <ImageView fitHeight="37.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../Icons/Trash2.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <ImageView fitHeight="23.0" fitWidth="24.0" layoutX="9.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../Icons/Search.png" />
+                                 </image>
+                              </ImageView>
+                              <Button fx:id="btnEditar11" layoutX="330.0" layoutY="7.0" minWidth="45.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="45.0">
+                                 <graphic>
+                                    <ImageView fitHeight="37.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../Icons/edit.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <ImageView fx:id="btnFechaPanePesquisar1" fitHeight="25.0" fitWidth="23.0" layoutX="457.0" layoutY="2.0" onMouseClicked="#btnFecharJanelas" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../Icons/CancelCheck2.png" />
+                                 </image>
+                              </ImageView>
+                              <TableView fx:id="equipamentoTableView" layoutX="20.0" layoutY="67.0" prefHeight="164.0" prefWidth="444.0" />
+                              <GridPane hgap="5.0" layoutX="43.0" layoutY="262.0" prefHeight="304.0" prefWidth="398.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="166.0" minWidth="10.0" prefWidth="74.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="110.0" minWidth="10.0" prefWidth="67.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.0" minWidth="0.0" prefWidth="116.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="118.0" minWidth="10.0" prefWidth="32.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="142.0" minWidth="10.0" prefWidth="104.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label prefHeight="21.0" prefWidth="80.0" text="Descrição*" GridPane.columnSpan="2" GridPane.valignment="BOTTOM">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <JFXTextField fx:id="txtEquipamentoDescricao" focusColor="#ed0f00" prefHeight="26.0" prefWidth="238.0" promptText="Digite o nome" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </JFXTextField>
+                                    <Label prefHeight="21.0" prefWidth="123.0" text="Nº de Série" GridPane.columnIndex="2" GridPane.valignment="BOTTOM">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <JFXTextField fx:id="txtEquipamentoSerie" focusColor="#ed0f00" prefHeight="30.0" prefWidth="249.0" promptText="Número de série" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="1">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </JFXTextField>
+                                    <Label prefHeight="21.0" prefWidth="74.0" text="Marca*" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <JFXTextField fx:id="txtEquipamentoMarca" focusColor="#ed0f00" prefHeight="26.0" prefWidth="239.0" promptText="Digita a marca" GridPane.columnSpan="2" GridPane.rowIndex="3">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </JFXTextField>
+                                    <Label prefHeight="21.0" prefWidth="59.0" text="Modelo*" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <JFXTextField fx:id="txtEquipamentoModelo" focusColor="#ed0f00" prefHeight="30.0" prefWidth="146.0" promptText="Digite o modelo" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </JFXTextField>
+                                    <Label prefHeight="21.0" prefWidth="59.0" text="Sinal*" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label prefHeight="21.0" prefWidth="101.0" text="Eixo X*" GridPane.columnIndex="2" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <JFXComboBox fx:id="cbEquipamentoSinal" focusColor="#ed0f00" prefHeight="29.0" prefWidth="134.0" promptText="Selecione" GridPane.columnSpan="2" GridPane.rowIndex="5" />
+                                    <Label prefHeight="21.0" prefWidth="82.0" text="Eixo Y*" GridPane.columnIndex="4" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <JFXTextField fx:id="txtEquipamentoEixoX" focusColor="#ed0f00" prefHeight="29.0" prefWidth="117.0" promptText="Resolução em X" style="-fx-border-insets: #383838;" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </JFXTextField>
+                                    <JFXTextField fx:id="txtEquipamentoEixoY" focusColor="#ed0f00" prefHeight="26.0" prefWidth="135.0" promptText="Resolução em Y" GridPane.columnIndex="4" GridPane.rowIndex="5">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </JFXTextField>
+                                    <Button fx:id="btnSalvarEquipamento" minWidth="53.0" mnemonicParsing="false" onAction="#btnSalvarEquipamentoAction" prefHeight="47.0" prefWidth="109.0" style="-fx-background-color: #0099FF;" text="Salvar" GridPane.columnIndex="4" GridPane.rowIndex="7">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Button>
+                                    <Button fx:id="btnCancelarEquipamento" minWidth="53.0" mnemonicParsing="false" onAction="#btnCancelarEquipamentoAction" prefHeight="47.0" prefWidth="108.0" style="-fx-background-color: #212121;" text="Cancelar" textFill="#fcf9f9" GridPane.columnIndex="2" GridPane.rowIndex="7">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Button>
                                  </children>
                               </GridPane>
                            </children>
@@ -498,153 +832,6 @@
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
-                        </Pane>
-                        <Pane fx:id="paneEquipamento" layoutX="20.0" layoutY="20.0" prefHeight="595.0" prefWidth="486.0" style="-fx-background-color: #FAFAF7;" visible="false">
-                           <children>
-                              <JFXTextField layoutX="24.0" layoutY="16.0" prefHeight="26.0" prefWidth="236.0" promptText="Digite o nome a ser pesquisado">
-                                 <padding>
-                                    <Insets left="20.0" top="10.0" />
-                                 </padding>
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </JFXTextField>
-                              <Button fx:id="btnAdicionarEquipamento" accessibleText="Clique para incluir um ovo registro" layoutX="275.0" layoutY="7.0" minWidth="44.0" mnemonicParsing="false" onAction="#btnAdicionarEquipamentoAction" prefHeight="47.0" prefWidth="44.0">
-                                 <graphic>
-                                    <ImageView fitHeight="33.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../Icons/Add.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </Button>
-                              <Button fx:id="btnExcluir11" layoutX="383.0" layoutY="7.0" minWidth="45.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="45.0">
-                                 <graphic>
-                                    <ImageView fitHeight="37.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../Icons/Trash2.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </Button>
-                              <ImageView fitHeight="23.0" fitWidth="24.0" layoutX="9.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../Icons/Search.png" />
-                                 </image>
-                              </ImageView>
-                              <Button fx:id="btnEditar11" layoutX="330.0" layoutY="7.0" minWidth="45.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="45.0">
-                                 <graphic>
-                                    <ImageView fitHeight="37.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../Icons/edit.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </Button>
-                              <ImageView fx:id="btnFechaPanePesquisar1" fitHeight="25.0" fitWidth="23.0" layoutX="457.0" layoutY="2.0" onMouseClicked="#btnFecharJanelas" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../Icons/CancelCheck2.png" />
-                                 </image>
-                              </ImageView>
-                              <TableView fx:id="equipamentoTableView" layoutX="20.0" layoutY="67.0" prefHeight="164.0" prefWidth="444.0" />
-                              <GridPane hgap="5.0" layoutX="43.0" layoutY="262.0" prefHeight="304.0" prefWidth="398.0">
-                                 <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="166.0" minWidth="10.0" prefWidth="74.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="110.0" minWidth="10.0" prefWidth="67.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.0" minWidth="0.0" prefWidth="116.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="118.0" minWidth="10.0" prefWidth="32.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="142.0" minWidth="10.0" prefWidth="104.0" />
-                                 </columnConstraints>
-                                 <rowConstraints>
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                 </rowConstraints>
-                                 <children>
-                                    <Label prefHeight="21.0" prefWidth="80.0" text="Descrição*" GridPane.columnSpan="2" GridPane.valignment="BOTTOM">
-                                       <font>
-                                          <Font size="15.0" />
-                                       </font>
-                                    </Label>
-                                    <JFXTextField fx:id="txtEquipamentoDescricao" focusColor="#ed0f00" prefHeight="26.0" prefWidth="238.0" promptText="Digite o nome" GridPane.columnSpan="2" GridPane.rowIndex="1">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </JFXTextField>
-                                    <Label prefHeight="21.0" prefWidth="123.0" text="Nº de Série" GridPane.columnIndex="2" GridPane.valignment="BOTTOM">
-                                       <font>
-                                          <Font size="15.0" />
-                                       </font>
-                                    </Label>
-                                    <JFXTextField fx:id="txtEquipamentoSerie" focusColor="#ed0f00" prefHeight="30.0" prefWidth="249.0" promptText="Número de série" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="1">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </JFXTextField>
-                                    <Label prefHeight="21.0" prefWidth="74.0" text="Marca*" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
-                                       <font>
-                                          <Font size="15.0" />
-                                       </font>
-                                    </Label>
-                                    <JFXTextField fx:id="txtEquipamentoMarca" focusColor="#ed0f00" prefHeight="26.0" prefWidth="239.0" promptText="Digita a marca" GridPane.columnSpan="2" GridPane.rowIndex="3">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </JFXTextField>
-                                    <Label prefHeight="21.0" prefWidth="59.0" text="Modelo*" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
-                                       <font>
-                                          <Font size="15.0" />
-                                       </font>
-                                    </Label>
-                                    <JFXTextField fx:id="txtEquipamentoModelo" focusColor="#ed0f00" prefHeight="30.0" prefWidth="146.0" promptText="Digite o modelo" GridPane.columnIndex="2" GridPane.rowIndex="3">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </JFXTextField>
-                                    <Label prefHeight="21.0" prefWidth="59.0" text="Sinal*" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
-                                       <font>
-                                          <Font size="15.0" />
-                                       </font>
-                                    </Label>
-                                    <Label prefHeight="21.0" prefWidth="101.0" text="Eixo X*" GridPane.columnIndex="2" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
-                                       <font>
-                                          <Font size="15.0" />
-                                       </font>
-                                    </Label>
-                                    <JFXComboBox fx:id="cbEquipamentoSinal" focusColor="#ed0f00" prefHeight="29.0" prefWidth="134.0" promptText="Selecione" GridPane.columnSpan="2" GridPane.rowIndex="5" />
-                                    <Label prefHeight="21.0" prefWidth="82.0" text="Eixo Y*" GridPane.columnIndex="4" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
-                                       <font>
-                                          <Font size="15.0" />
-                                       </font>
-                                    </Label>
-                                    <JFXTextField fx:id="txtEquipamentoEixoX" focusColor="#ed0f00" prefHeight="29.0" prefWidth="117.0" promptText="Resolução em X" style="-fx-border-insets: #383838;" GridPane.columnIndex="2" GridPane.rowIndex="5">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </JFXTextField>
-                                    <JFXTextField fx:id="txtEquipamentoEixoY" focusColor="#ed0f00" prefHeight="26.0" prefWidth="135.0" promptText="Resolução em Y" GridPane.columnIndex="4" GridPane.rowIndex="5">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </JFXTextField>
-                                    <Button fx:id="btnSalvarTecnico" minWidth="53.0" mnemonicParsing="false" onAction="#btnSalvarTecnicoAction" prefHeight="47.0" prefWidth="109.0" style="-fx-background-color: #0099FF;" text="Salvar" GridPane.columnIndex="4" GridPane.rowIndex="7">
-                                       <font>
-                                          <Font size="15.0" />
-                                       </font>
-                                    </Button>
-                                    <Button fx:id="btnCancelarEquipamento" minWidth="53.0" mnemonicParsing="false" onAction="#btnCancelarEquipamentoAction" prefHeight="47.0" prefWidth="108.0" style="-fx-background-color: #212121;" text="Cancelar" textFill="#fcf9f9" GridPane.columnIndex="2" GridPane.rowIndex="7">
-                                       <font>
-                                          <Font size="15.0" />
-                                       </font>
-                                    </Button>
-                                 </children>
-                              </GridPane>
-                           </children>
                         </Pane>
                      </children>
                   </AnchorPane>
