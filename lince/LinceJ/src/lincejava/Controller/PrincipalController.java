@@ -398,6 +398,12 @@ public class PrincipalController {
         
         TableColumn<EquipamentoModel, String> tcEquipamentoNome = new TableColumn("DESCRIÇÃO");
         tcEquipamentoNome.setCellValueFactory(new PropertyValueFactory<>("descricao"));
+//<<<<<<< HEAD
+//
+//        this.cadastroTableView = new TableView<>();
+//        this.cadastroTableView.getItems().clear();
+//        this.cadastroTableView.getColumns().clear();
+//=======
         
         this.equipamentoTableView.getItems().clear();
         this.equipamentoTableView.getColumns().clear();
@@ -566,5 +572,12 @@ public class PrincipalController {
         });  
     }
     
+
+     @FXML
+    void btnSalvarFazenda() throws ClassNotFoundException, SQLException, Exception {
+            //paneCadastrar.setVisible(false);
+            System.out.println("Empresa cancelou");
+
+    }
 }
 
