@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="LinceJava">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/LinceJava.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
