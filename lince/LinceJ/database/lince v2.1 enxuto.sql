@@ -40,6 +40,7 @@ DROP TABLE IF EXISTS tecnico;
 CREATE TABLE IF NOT EXISTS tecnico(
     id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
     nome varchar(45) NOT NULL,
+    cpf varchar(11) not null,
     id_contato int NOT NULL UNIQUE,
     id_endereco int NOT NULL UNIQUE,
     log DATETIME DEFAULT current_timestamp
@@ -121,24 +122,6 @@ CREATE TABLE IF NOT EXISTS endereco(
     CONSTRAINT `fk_endereco_id_estado` FOREIGN KEY (id_estado) REFERENCES estado (id),
     CONSTRAINT `fk_endereco_id_pais` FOREIGN KEY (id_pais) REFERENCES pais (id)
 );
-
-
-
-
-SELECT tecnico_sessao.id_tecnico, tecnico.nome FROM tecnico_sessao INNER JOIN tecnico ON tecnico_sessao.id_tecnico = tecnico.id;
-
-SELECT tecnico_sessao.id AS 'tecnico_id' FROM tecnico_sessao WHERE tecnico_sessao.id_sessao = '1';
-
-/*
-	Fazendo select nas tabelas através da tabela N:N (tabela de relacionamento) entre tecnico e sessão para achar o nome do técnico pelo id da sessão.
-*/
-
-SELECT 	tecnico.nome 
-FROM 	tecnico 
-WHERE 	tecnico.id = (
-	SELECT tecnico_sessao.id_tecnico FROM tecnico_sessao WHERE tecnico_sessao.id_sessao = '1'
-);
-
 
 
 INSERT INTO `pais` (`id`, `nome`) VALUES
@@ -255,26 +238,4 @@ INSERT INTO `estado` (`nome`, `id_pais`) VALUES
 ("Valle del Cauca", 48),
 ("Vaupés", 48),
 ("Vichada", 48);
-
-use tecnico;
-select * from ecnico;
-
-
-
-
-INSERT INTO contato 		(fixo, celular,  email) 							VALUES ('35632386','19982037426', '19984168533', 'eletronica.bruno@hotmail.com');
-INSERT INTO contato 		(fixo, celular, email) 							VALUES ('35652535','19982032674', '19984163385', 'bruno.eletronica@hotmail.com');
-INSERT INTO endereco 		(bairro, cidade, id_pais, id_estado, rua, numero, complemento) 		VALUES ('Vila Malaquias','Pirassununga', 38 , 5,'Osmarina Sedeh Padilha','305','Casa do Bruno');
-INSERT INTO endereco 		(bairro, cidade, id_pais, id_estado, rua, numero, complemento) 		VALUES ('Vila Santa Teresinha','Pirassununga',38, 5,'Joaquim Cristóvão','195','Casa do Juresmildo');
-INSERT INTO paciente 		(peso, grupo_manejo, raca) 										VALUES ('35', 'Turma A', 'Vaca Zebu');
-INSERT INTO equipamento 	(descricao, marca, modelo, tipo_sinal, escala_x, escala_y) 		VALUES ('Furadeira','Bosch','M1 Abrams','Digital','10','-10');
-INSERT INTO tecnico 		(nome, id_endereco, id_contato) 								VALUES ('Juresmildo Tarantino','1','1');
-INSERT INTO empresa 		(nome, id_endereco, id_contato) 								VALUES ('Juresmildo e sobrinhos LTDA','2','2');
-INSERT INTO sessao 			(dt_criacao_sessao, id_equipamento, id_empresa)	 				VALUES ('2020-06-11','1','1');
-INSERT INTO imagem 			(id_paciente, tipo) 											VALUES ('1','Raio-X');
-INSERT INTO imagem_sessao 	(id_imagem, id_sessao) 											VALUES ('1', '1');
-INSERT INTO tecnico_sessao 	(id_tecnico, id_sessao) 										VALUES ('1', '1');
-
-use lince;
-select * from estado;
 

@@ -24,6 +24,7 @@ public class TecnicoModel extends PersistModelAbstract
     
     private int id;
     private String nome;
+    private String cpf;
     private EnderecoModel endereco;
     private ContatoModel contato;
     
@@ -32,9 +33,10 @@ public class TecnicoModel extends PersistModelAbstract
         super();
     }
     
-    public TecnicoModel(String nome, EnderecoModel endereco, ContatoModel contato) throws ClassNotFoundException, SQLException
+    public TecnicoModel(String nome, String cpf, EnderecoModel endereco, ContatoModel contato) throws ClassNotFoundException, SQLException
     {
         this.nome = nome;
+        this.cpf = cpf;
         this.endereco = endereco;
         this.contato = contato;
     }
@@ -47,13 +49,14 @@ public class TecnicoModel extends PersistModelAbstract
         int idContato = this.contato.create();
         int idEndereco = this.endereco.create();
         
-        String sql = "INSERT INTO tecnico (nome, id_contato, id_endereco) VALUES (?,?,?)";
+        String sql = "INSERT INTO tecnico (nome, cpf, id_contato, id_endereco) VALUES (?,?,?,?)";
         
         PreparedStatement stmt = this.getConexao().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         
         stmt.setString(1, this.getNome());
-        stmt.setString(2, Integer.toString(contato.getId()));
-        stmt.setString(3, Integer.toString(endereco.getId()));
+        stmt.setString(2, this.getCpf());
+        stmt.setString(3, Integer.toString(contato.getId()));
+        stmt.setString(4, Integer.toString(endereco.getId()));
         
         try
         {
@@ -87,6 +90,7 @@ public class TecnicoModel extends PersistModelAbstract
              
              tecnicoModel.setId(Integer.parseInt(results.getString("id")));
              tecnicoModel.setNome(results.getString("nome"));
+             tecnicoModel.setCpf(results.getString("cpf"));
              
              contatoModel = new ContatoModel();
              contatoModel.setId(Integer.parseInt(results.getString("id_contato")));
@@ -118,6 +122,14 @@ public class TecnicoModel extends PersistModelAbstract
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+    
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
     
      public EnderecoModel getEndereco() {

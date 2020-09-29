@@ -71,7 +71,7 @@ public class PrincipalController {
     @FXML
     private JFXTextField txtTecnicoNome;    
     @FXML
-    private JFXTextField txtTecnicoID;
+    private JFXTextField txtTecnicoCpf;
     @FXML
     private JFXTextField txtTecnicoEndereco;
     @FXML
@@ -135,8 +135,8 @@ public class PrincipalController {
         TecnicoModel tecnico = new TecnicoModel();
         ArrayList<TecnicoModel> resultados = tecnico.read();
         
-        TableColumn<TecnicoModel, String> tcTecnicoId = new TableColumn("ID");
-        tcTecnicoId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        TableColumn<TecnicoModel, String> tcTecnicoId = new TableColumn("CPF");
+        tcTecnicoId.setCellValueFactory(new PropertyValueFactory<>("cpf"));
         
         TableColumn<TecnicoModel, String> tcTecnicoNome = new TableColumn("NOME");
         tcTecnicoNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
@@ -144,8 +144,8 @@ public class PrincipalController {
         this.tecnicoTableView.getItems().clear();
         this.tecnicoTableView.getColumns().clear();
         
-        tcTecnicoId.setPrefWidth(tecnicoTableView.getWidth() * 0.2);
-        tcTecnicoNome.setPrefWidth(tecnicoTableView.getWidth() * 0.8);
+        tcTecnicoId.setPrefWidth(tecnicoTableView.getWidth() * 0.3);
+        tcTecnicoNome.setPrefWidth(tecnicoTableView.getWidth() * 0.7);
         
         this.tecnicoTableView.getColumns().addAll(tcTecnicoId, tcTecnicoNome);
         
@@ -192,6 +192,7 @@ public class PrincipalController {
 
             TecnicoModel tecnicoModel = new TecnicoModel(
                     txtTecnicoNome.getText(),
+                    txtTecnicoCpf.getText(),
                     enderecoModel,
                     contatoModel
             );
@@ -224,7 +225,7 @@ public class PrincipalController {
     @FXML
     private JFXTextField txtEmpresaNome;    
     @FXML
-    private JFXTextField txtEmpresaID;
+    private JFXTextField txtEmpresaCnpj;
     @FXML
     private JFXTextField txtEmpresaEndereco;
     @FXML
@@ -257,8 +258,8 @@ public class PrincipalController {
         EmpresaModel empresa = new EmpresaModel();
         ArrayList<EmpresaModel> resultados = empresa.read();
         
-        TableColumn<EmpresaModel, String> tcEmpresaId = new TableColumn("ID");
-        tcEmpresaId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        TableColumn<EmpresaModel, String> tcEmpresaId = new TableColumn("CNPJ");
+        tcEmpresaId.setCellValueFactory(new PropertyValueFactory<>("cnpj"));
         
         TableColumn<EmpresaModel, String> tcEmpresaNome = new TableColumn("NOME");
         tcEmpresaNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
@@ -325,6 +326,7 @@ public class PrincipalController {
             EmpresaModel empresaModel = new EmpresaModel(
                     0,
                     txtEmpresaNome.getText(),
+                    txtEmpresaCnpj.getText(),
                     enderecoModel,
                     contatoModel
             );
@@ -392,19 +394,12 @@ public class PrincipalController {
     {
         EquipamentoModel equipamento = new EquipamentoModel();
         ArrayList<EquipamentoModel> resultados = equipamento.read();
-        
-        TableColumn<EquipamentoModel, String> tcEquipamentoId = new TableColumn("ID");
-        tcEquipamentoId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        TableColumn<EquipamentoModel, String> tcEquipamentoId = new TableColumn("N. Série");
+        tcEquipamentoId.setCellValueFactory(new PropertyValueFactory<>("numero_serie"));
         
         TableColumn<EquipamentoModel, String> tcEquipamentoNome = new TableColumn("DESCRIÇÃO");
         tcEquipamentoNome.setCellValueFactory(new PropertyValueFactory<>("descricao"));
-//<<<<<<< HEAD
-//
-//        this.cadastroTableView = new TableView<>();
-//        this.cadastroTableView.getItems().clear();
-//        this.cadastroTableView.getColumns().clear();
-//=======
-        
+
         this.equipamentoTableView.getItems().clear();
         this.equipamentoTableView.getColumns().clear();
         
