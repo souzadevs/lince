@@ -61,42 +61,24 @@ public class PrincipalController {
     //***************Tecnicos***********
     // Controles
 
-    @FXML
-    private Pane paneTecnico;
-    @FXML
-    private Button btnAdicionarTecnico;
-    @FXML
-    private JFXTextField txtTecnicoNome;    
-    @FXML
-    private JFXTextField txtTecnicoCpf;
-    @FXML
-    private JFXTextField txtTecnicoEndereco;
-    @FXML
-    private JFXTextField txttecnicoNumero;
-    @FXML
-    private JFXTextField txtTecnicoBairro;
-    @FXML
-    private JFXTextField txtTecnicoCidade;
-    @FXML
-    private JFXComboBox<EstadoModel> cbTecnicoEstado;
-    @FXML
-    private JFXComboBox<PaisModel>  cbTecnicoPais;
-    @FXML
-    private JFXTextField txtTecnicoTelefone;
-    @FXML
-    private JFXTextField txtTecnicoCelular;
-    @FXML
-    private JFXTextField txtTecnicoEmail;
-    @FXML
-    private Button btnSalvarTecnico;
-    @FXML
-    private Button btnCancelarTecnico;
-    @FXML 
-    private TableView<TecnicoModel> tecnicoTableView;
-    @FXML
-    private TableColumn<TecnicoModel, String> tecnicoTableViewId;
-    @FXML
-    private TableColumn<TecnicoModel, String> tecnicoTableViewNome;
+    @FXML private Pane paneTecnico;
+    @FXML private Button btnAdicionarTecnico;
+    @FXML private JFXTextField txtTecnicoNome;    
+    @FXML private JFXTextField txtTecnicoCpf;
+    @FXML private JFXTextField txtTecnicoEndereco;
+    @FXML private JFXTextField txttecnicoNumero;
+    @FXML private JFXTextField txtTecnicoBairro;
+    @FXML private JFXTextField txtTecnicoCidade;
+    @FXML private JFXComboBox<EstadoModel> cbTecnicoEstado;
+    @FXML private JFXComboBox<PaisModel>  cbTecnicoPais;
+    @FXML private JFXTextField txtTecnicoTelefone;
+    @FXML private JFXTextField txtTecnicoCelular;
+    @FXML private JFXTextField txtTecnicoEmail;
+    @FXML private Button btnSalvarTecnico;
+    @FXML private Button btnCancelarTecnico;
+    @FXML private TableView<TecnicoModel> tecnicoTableView;
+    @FXML private TableColumn<TecnicoModel, String> tecnicoTableViewId;
+    @FXML private TableColumn<TecnicoModel, String> tecnicoTableViewNome;
 
 
     
@@ -145,7 +127,6 @@ public class PrincipalController {
         tcTecnicoNome.setPrefWidth(tecnicoTableView.getWidth() * 0.7);
         
         this.tecnicoTableView.getColumns().addAll(tcTecnicoId, tcTecnicoNome);
-        
         this.tecnicoTableView.setItems(FXCollections.observableArrayList(resultados));
     }
     
@@ -153,7 +134,11 @@ public class PrincipalController {
     public void tecnicoSelecionar(){
         
         TecnicoModel tecnico = tecnicoTableView.getSelectionModel().getSelectedItem();
-        System.out.println(tecnico.getId());
+        
+        this.txtTecnicoNome.setText(tecnico.getNome());
+        this.txtTecnicoCpf.setText(tecnico.getCpf());
+
+
         
     }
     

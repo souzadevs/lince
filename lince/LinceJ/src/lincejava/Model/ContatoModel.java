@@ -63,9 +63,7 @@ public class ContatoModel extends PersistModelAbstract{
         PreparedStatement stmt = this.getConexao().prepareStatement(query);
         
         stmt.setString(1, String.valueOf(this.getId()));
-        
-        // ArrayList<ContatoModel> contatos = new ArrayList<>();
-        
+                
         ResultSet results = stmt.executeQuery();
         while(results.next()) {
             this.setId(Integer.parseInt(results.getString("id")));
