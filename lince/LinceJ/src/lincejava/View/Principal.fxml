@@ -138,7 +138,7 @@
                                     <Image url="@../../Icons/CancelCheck2.png" />
                                  </image>
                               </ImageView>
-                              <TableView fx:id="tecnicoTableView" layoutX="20.0" layoutY="67.0" prefHeight="164.0" prefWidth="444.0" />
+                              <TableView fx:id="tecnicoTableView" layoutX="20.0" layoutY="67.0" onMouseClicked="#tecnicoSelecionar" prefHeight="164.0" prefWidth="444.0" />
                               <GridPane layoutX="24.0" layoutY="244.0" prefHeight="302.0" prefWidth="438.0">
                                  <columnConstraints>
                                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="139.0" minWidth="10.0" prefWidth="133.0" />

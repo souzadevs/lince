@@ -30,13 +30,10 @@ public class PrincipalController {
     // Controles
     
     @FXML private Button btnTecnico;
-    @FXML
-    private Button btnFazenda;
-    @FXML
-    private Button btnEquipamento;
+    @FXML private Button btnFazenda;
+    @FXML private Button btnEquipamento;
     @FXML private Button btnConfiguracoes;
-    @FXML
-    private Button btnSair;
+    @FXML private Button btnSair;
     
 
     //Procedimentos
@@ -151,6 +148,16 @@ public class PrincipalController {
         
         this.tecnicoTableView.setItems(FXCollections.observableArrayList(resultados));
     }
+    
+    @FXML
+    public void tecnicoSelecionar(){
+        
+        TecnicoModel tecnico = tecnicoTableView.getSelectionModel().getSelectedItem();
+        System.out.println(tecnico.getId());
+        
+    }
+    
+    
     
     @FXML
     private void btnAdicionarTecnicoAction() {
