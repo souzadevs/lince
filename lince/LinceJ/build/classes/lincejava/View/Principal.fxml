@@ -196,7 +196,7 @@
                                           <Font size="15.0" />
                                        </font>
                                     </Label>
-                                    <JFXTextField fx:id="txttecnicoNumero" focusColor="#ed0f00" prefHeight="26.0" prefWidth="73.0" promptText="Numero" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                                    <JFXTextField fx:id="txtTecnicoNumero" focusColor="#ed0f00" prefHeight="26.0" prefWidth="73.0" promptText="Numero" GridPane.columnIndex="3" GridPane.rowIndex="3">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
@@ -237,7 +237,7 @@
                                           <Font size="15.0" />
                                        </font>
                                     </Label>
-                                    <JFXTextField fx:id="txtTecnicoTelefone" focusColor="#ed0f00" prefHeight="29.0" prefWidth="117.0" promptText="Digite o telefone" style="-fx-border-insets: #383838;" GridPane.rowIndex="7">
+                                    <JFXTextField fx:id="txtTecnicoFixo" focusColor="#ed0f00" prefHeight="29.0" prefWidth="117.0" promptText="Digite o telefone" style="-fx-border-insets: #383838;" GridPane.rowIndex="7">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
@@ -272,7 +272,7 @@
                                           <Font size="15.0" />
                                        </font>
                                     </Button>
-                                    <JFXToggleButton onAction="#toggleTecnicoAtivo" prefHeight="60.0" prefWidth="119.0" selected="true" text="Ativo" unToggleColor="#d70303" GridPane.rowIndex="9" />
+                                    <JFXToggleButton fx:id="tglTecnicoAtivo" onAction="#toggleTecnicoAtivo" prefHeight="60.0" prefWidth="119.0" selected="true" text="Ativo" unToggleColor="#d70303" GridPane.rowIndex="9" />
 <!--<<<<<<< HEAD
                                     <JFXComboBox fx:id="cbTecnicoPais" focusColor="#ed0f00" onAction="#toggleTecnicoPais" prefHeight="29.0" prefWidth="133.0" promptText="Selecione" visible="false" GridPane.columnIndex="3" GridPane.rowIndex="5" />
 =======

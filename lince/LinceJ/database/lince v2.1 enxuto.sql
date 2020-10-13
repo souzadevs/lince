@@ -41,9 +41,11 @@ CREATE TABLE IF NOT EXISTS tecnico(
     id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
     nome varchar(45) NOT NULL,
     cpf varchar(11) not null,
+    ativo boolean not null,
     id_contato int NOT NULL UNIQUE,
     id_endereco int NOT NULL UNIQUE,
     log DATETIME DEFAULT current_timestamp
+    
 );
 
 DROP TABLE IF EXISTS empresa;
@@ -238,4 +240,10 @@ INSERT INTO `estado` (`nome`, `id_pais`) VALUES
 ("Valle del Cauca", 48),
 ("Vaupés", 48),
 ("Vichada", 48);
+
+use lince;
+select * from tecnico;
+
+alter table tecnico drop column ativo ;
+alter table tecnico add column ativo varchar(1) not null;
 

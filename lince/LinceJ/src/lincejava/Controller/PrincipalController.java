@@ -2,6 +2,7 @@ package lincejava.Controller;
 
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXToggleButton;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,14 +67,15 @@ public class PrincipalController {
     @FXML private JFXTextField txtTecnicoNome;    
     @FXML private JFXTextField txtTecnicoCpf;
     @FXML private JFXTextField txtTecnicoEndereco;
-    @FXML private JFXTextField txttecnicoNumero;
+    @FXML private JFXTextField txtTecnicoNumero;
     @FXML private JFXTextField txtTecnicoBairro;
     @FXML private JFXTextField txtTecnicoCidade;
     @FXML private JFXComboBox<EstadoModel> cbTecnicoEstado;
     @FXML private JFXComboBox<PaisModel>  cbTecnicoPais;
-    @FXML private JFXTextField txtTecnicoTelefone;
+    @FXML private JFXTextField txtTecnicoFixo;
     @FXML private JFXTextField txtTecnicoCelular;
     @FXML private JFXTextField txtTecnicoEmail;
+    @FXML private JFXToggleButton tglTecnicoAtivo;
     @FXML private Button btnSalvarTecnico;
     @FXML private Button btnCancelarTecnico;
     @FXML private TableView<TecnicoModel> tecnicoTableView;
@@ -100,7 +102,6 @@ public class PrincipalController {
         
         this.estados.forEach((estado) -> {       
             if(estado.getIdPais() == this.cbTecnicoPais.getSelectionModel().getSelectedItem().getId()){
-                //System.out.println(estado.getNome());
                 estadosSelecionados.add(estado);
             }
         });
@@ -137,18 +138,34 @@ public class PrincipalController {
         
         this.txtTecnicoNome.setText(tecnico.getNome());
         this.txtTecnicoCpf.setText(tecnico.getCpf());
-
-
         
+       if (tecnico.getAtivo() == "1") {
+           this.tglTecnicoAtivo.setSelected(true);
+           System.out.println(tecnico.getAtivo());
+           System.out.println("Igual a 1");
+       } else {
+           System.out.println(tecnico.getAtivo());
+           System.out.println("Igual a 0");
+           this.tglTecnicoAtivo.setSelected(false);
+       }
+           
+        this.txtTecnicoEndereco.setText(tecnico.getEndereco().getRua());   
+        this.txtTecnicoNumero.setText(tecnico.getEndereco().getNumero());
+        this.txtTecnicoBairro.setText(tecnico.getEndereco().getBairro());
+        this.txtTecnicoCidade.setText(tecnico.getEndereco().getCidade());
+        //this.txtTecnicoPais.setText(tecnico.getEndereco().getPais());
+        //this.txtTecnicoEstado.setText(tecnico.getEndereco().getEstado());
+        this.txtTecnicoFixo.setText(tecnico.getContato().getFixo());
+        this.txtTecnicoCelular.setText(tecnico.getContato().getCelular());
+        this.txtTecnicoEmail.setText(tecnico.getContato().getEmail());
+
     }
-    
-    
     
     @FXML
     private void btnAdicionarTecnicoAction() {
     
        this.paneTecnico.prefHeight(560);
-        this.btnAdicionarTecnico.setDisable(false);
+       this.btnAdicionarTecnico.setDisable(false);
        this.btnCancelarTecnico.setDisable(false);
     }
     
@@ -175,16 +192,17 @@ public class PrincipalController {
             enderecoModel.setCidade(this.txtTecnicoCidade.getText());
             enderecoModel.setBairro(this.txtTecnicoBairro.getText());
             enderecoModel.setRua(this.txtTecnicoEndereco.getText());
-            enderecoModel.setNumero(this.txttecnicoNumero.getText());
+            enderecoModel.setNumero(this.txtTecnicoNumero.getText());
 
             ContatoModel contatoModel = new ContatoModel();
             contatoModel.setCelular(this.txtTecnicoCelular.getText());
             contatoModel.setEmail(this.txtTecnicoEmail.getText());
-            contatoModel.setFixo(this.txtTecnicoTelefone.getText());
+            contatoModel.setFixo(this.txtTecnicoFixo.getText());
 
             TecnicoModel tecnicoModel = new TecnicoModel(
                     txtTecnicoNome.getText(),
                     txtTecnicoCpf.getText(),
+                    tglTecnicoAtivo.isSelected() == true ? "1":"0",
                     enderecoModel,
                     contatoModel
             );

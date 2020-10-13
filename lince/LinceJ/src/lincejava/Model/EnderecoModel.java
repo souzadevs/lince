@@ -97,7 +97,7 @@ public class EnderecoModel extends PersistModelAbstract
             this.bairro = results.getString("bairro");
             this.rua = results.getString("rua");
             this.numero = results.getString("numero");
-            this.complemento = results.getString("complemento");
+//            this.complemento = results.getString("complemento");
             
             //Load finalizado, falta colocar o load no momento load do tecnico
             //Também, falta colocar o load do Pais e Estado

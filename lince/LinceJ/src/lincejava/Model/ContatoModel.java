@@ -57,13 +57,15 @@ public class ContatoModel extends PersistModelAbstract{
         } 
     }
 
-    public void load() throws ClassNotFoundException, SQLException 
+    public void load(int id) throws ClassNotFoundException, SQLException 
     {
         String query = "SELECT * FROM contato WHERE id = ?";
         PreparedStatement stmt = this.getConexao().prepareStatement(query);
         
-        stmt.setString(1, String.valueOf(this.getId()));
-                
+        stmt.setString(1, String.valueOf(id));
+//        stmt.setString(1, String.valueOf(this.getId()));
+        // ArrayList<ContatoModel> contatos = new ArrayList<>();
+        
         ResultSet results = stmt.executeQuery();
         while(results.next()) {
             this.setId(Integer.parseInt(results.getString("id")));

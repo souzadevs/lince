@@ -25,6 +25,7 @@ public class TecnicoModel extends PersistModelAbstract
     private int id;
     private String nome;
     private String cpf;
+    private String ativo;
     private EnderecoModel endereco;
     private ContatoModel contato;
     
@@ -33,10 +34,11 @@ public class TecnicoModel extends PersistModelAbstract
         super();
     }
     
-    public TecnicoModel(String nome, String cpf, EnderecoModel endereco, ContatoModel contato) throws ClassNotFoundException, SQLException
+    public TecnicoModel(String nome, String cpf, String ativo, EnderecoModel endereco, ContatoModel contato) throws ClassNotFoundException, SQLException
     {
         this.nome = nome;
         this.cpf = cpf;
+        this.ativo = ativo;
         this.endereco = endereco;
         this.contato = contato;
     }
@@ -49,14 +51,14 @@ public class TecnicoModel extends PersistModelAbstract
         int idContato = this.contato.create();
         int idEndereco = this.endereco.create();
         
-        String sql = "INSERT INTO tecnico (nome, cpf, id_contato, id_endereco) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO tecnico (nome, cpf, ativo, id_contato, id_endereco) VALUES (?,?,?,?,?)";
         
         PreparedStatement stmt = this.getConexao().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-        
         stmt.setString(1, this.getNome());
         stmt.setString(2, this.getCpf());
-        stmt.setString(3, Integer.toString(contato.getId()));
-        stmt.setString(4, Integer.toString(endereco.getId()));
+        stmt.setString(3, this.getAtivo());
+        stmt.setString(4, Integer.toString(contato.getId()));
+        stmt.setString(5, Integer.toString(endereco.getId()));
         
         try
         {
@@ -86,24 +88,28 @@ public class TecnicoModel extends PersistModelAbstract
         EnderecoModel enderecoModel;
         
         while(results.next()) {
-             tecnicoModel = new TecnicoModel();
-             
-             tecnicoModel.setId(Integer.parseInt(results.getString("id")));
-             tecnicoModel.setNome(results.getString("nome"));
-             tecnicoModel.setCpf(results.getString("cpf"));
-             
-             contatoModel = new ContatoModel();
-             contatoModel.setId(Integer.parseInt(results.getString("id_contato")));
-             //Colocar load aqui para carregar todo o contato
-             
-             enderecoModel = new EnderecoModel();
-             enderecoModel.setId(Integer.parseInt(results.getString("id_endereco")));
-             //Colocar load aqui para carrega todo o endereco
-             
-             tecnicoModel.setContato(contatoModel);
-             tecnicoModel.setEndereco(enderecoModel);
-             
-             tecnico.add(tecnicoModel);
+            tecnicoModel = new TecnicoModel();
+
+            tecnicoModel.setId(Integer.parseInt(results.getString("id")));
+            tecnicoModel.setNome(results.getString("nome"));
+            tecnicoModel.setCpf(results.getString("cpf"));
+            tecnicoModel.setAtivo(results.getString("ativo"));
+
+            contatoModel = new ContatoModel();
+            contatoModel.load(Integer.parseInt(results.getString("id_contato")));
+//            contatoModel.setId(Integer.parseInt(results.getString("id_contato")));
+
+            //Colocar load aqui para carregar todo o contato
+
+            enderecoModel = new EnderecoModel();
+            enderecoModel.load(Integer.parseInt(results.getString("id_endereco")));
+//            enderecoModel.setId());
+            //Colocar load aqui para carrega todo o endereco
+
+            tecnicoModel.setContato(contatoModel);
+            tecnicoModel.setEndereco(enderecoModel);
+
+            tecnico.add(tecnicoModel);
         }
         return tecnico;
     }
@@ -132,7 +138,15 @@ public class TecnicoModel extends PersistModelAbstract
         this.cpf = cpf;
     }
     
-     public EnderecoModel getEndereco() {
+    public String getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(String ativo) {
+        this.ativo = ativo;
+    }
+   
+    public EnderecoModel getEndereco() {
         return endereco;
     }
 
