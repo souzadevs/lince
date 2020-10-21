@@ -31,9 +31,21 @@ CREATE TABLE IF NOT EXISTS equipamento(
     marca VARCHAR(45) NOT NULL,
     modelo VARCHAR(45) NOT NULL,
     tipo_sinal VARCHAR(45) NOT NULL,
-    escala_x VARCHAR(45) NOT NULL,
-    escala_y VARCHAR(45) NOT NULL,
-    log DATETIME DEFAULT current_timestamp
+    log DATETIME DEFAULT current_timestamp,
+    ativo varchar(1) not null
+);
+
+DROP TABLE IF EXISTS transdutor;
+CREATE TABLE IF NOT EXISTS transdutor(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    descricao VARCHAR(50) NOT NULL,
+    numero_serienumero_serietransdutor varchar(20) NOT NULL,
+    marca VARCHAR(45) NOT NULL,
+    modelo VARCHAR(45) NOT NULL,
+    eixo_x VARCHAR(45) NOT NULL,
+    eixo_y VARCHAR(45) NOT NULL,
+    log DATETIME DEFAULT current_timestamp,
+    ativo varchar(1) not null
 );
 
 DROP TABLE IF EXISTS tecnico;
@@ -41,20 +53,21 @@ CREATE TABLE IF NOT EXISTS tecnico(
     id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
     nome varchar(45) NOT NULL,
     cpf varchar(11) not null,
-    ativo boolean not null,
     id_contato int NOT NULL UNIQUE,
     id_endereco int NOT NULL UNIQUE,
-    log DATETIME DEFAULT current_timestamp
-    
+    log DATETIME DEFAULT current_timestamp,
+    ativo varchar(1) not null
 );
 
 DROP TABLE IF EXISTS empresa;
 CREATE TABLE IF NOT EXISTS empresa(
     id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(50) NOT NULL,
+    cnpj varchar(11) not null,
     id_contato INT NOT NULL UNIQUE,
     id_endereco INT NOT NULL UNIQUE,
-    log DATETIME DEFAULT current_timestamp
+    log DATETIME DEFAULT current_timestamp,
+    ativo varchar(1) not null
 );
 
 DROP TABLE IF EXISTS sessao;
@@ -241,9 +254,12 @@ INSERT INTO `estado` (`nome`, `id_pais`) VALUES
 ("Vaupés", 48),
 ("Vichada", 48);
 
-use lince;
-select * from tecnico;
 
-alter table tecnico drop column ativo ;
-alter table tecnico add column ativo varchar(1) not null;
+use lince;
+select * from transdutor;
+
+describe equipamento;
+
+
+alter table equipamento add column ativo varchar(1);
 

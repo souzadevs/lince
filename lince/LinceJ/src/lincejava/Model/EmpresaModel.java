@@ -21,6 +21,7 @@ public class EmpresaModel extends PersistModelAbstract
     private int id;
     private String nome;
     private String cnpj;
+    private String ativo;
     private EnderecoModel endereco;
     private ContatoModel contato;
 
@@ -29,12 +30,13 @@ public class EmpresaModel extends PersistModelAbstract
         super();
     }
 
-    public EmpresaModel(int id, String nome, String cnpj, EnderecoModel endereco, ContatoModel contato) throws ClassNotFoundException, SQLException
+    public EmpresaModel(int id, String nome, String cnpj, String ativo, EnderecoModel endereco, ContatoModel contato) throws ClassNotFoundException, SQLException
     {
         super();
         this.id = id;
         this.nome = nome;
         this.cnpj = cnpj;
+        this.ativo = ativo;
         this.endereco = endereco;
         this.contato = contato;
     }
@@ -44,14 +46,15 @@ public class EmpresaModel extends PersistModelAbstract
         int idContato = this.contato.create();
         int idEndereco = this.endereco.create();
         
-        String sql = "INSERT INTO empresa (nome, cnpj, id_contato, id_endereco) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO empresa (nome, cnpj, ativo, id_contato, id_endereco) VALUES (?,?,?,?,?)";
         
         PreparedStatement stmt = this.getConexao().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         
         stmt.setString(1, this.getNome());
         stmt.setString(2, this.getCnpj());
-        stmt.setString(3, Integer.toString(contato.getId()));
-        stmt.setString(4, Integer.toString(endereco.getId()));
+        stmt.setString(3, this.getAtivo());
+        stmt.setString(4, Integer.toString(contato.getId()));
+        stmt.setString(5, Integer.toString(endereco.getId()));
         
         try
         {
@@ -86,7 +89,8 @@ public class EmpresaModel extends PersistModelAbstract
              empresaModel.setId(Integer.parseInt(results.getString("id")));
              empresaModel.setNome(results.getString("nome"));
              empresaModel.setCnpj(results.getString("cnpj"));
-             
+             empresaModel.setAtivo(results.getString("ativo"));
+
              contatoModel = new ContatoModel();
              contatoModel.setId(Integer.parseInt(results.getString("id_contato")));
              //Colocar load aqui para carregar todo o contato
@@ -103,6 +107,28 @@ public class EmpresaModel extends PersistModelAbstract
         return empresa;
     }
 
+    public void update() throws ClassNotFoundException, SQLException, Exception{
+        
+        this.endereco.update();
+        this.contato.update();
+        
+        String sql = "Update empresa set nome = ?, cnpj = ?, ativo = ?  where id = ?";
+        PreparedStatement stmt = this.getConexao().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        stmt.setString(1, this.getNome());
+        stmt.setString(2, this.getCnpj());
+        stmt.setString(3, this.getAtivo());
+        stmt.setString(4, String.valueOf(this.getId()));
+        
+        try
+        {
+            stmt.executeUpdate();
+            
+        } catch(SQLException e)
+        {
+            throw new Exception(e.getMessage());
+        } 
+      
+    }
     
     public int getId()
     {
@@ -134,6 +160,15 @@ public class EmpresaModel extends PersistModelAbstract
         this.cnpj = cnpj;
     }
     
+    
+    public String getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(String ativo) {
+        this.ativo = ativo;
+    }
+   
     public EnderecoModel getEndereco()
     {
         return endereco;

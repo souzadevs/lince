@@ -18,9 +18,6 @@ import lincejava.Lib.PersistModelAbstract;
  */
 public class TecnicoModel extends PersistModelAbstract
 {
-    //  nome 
-    //  id_endereco 
-    //  id_contato
     
     private int id;
     private String nome;
@@ -48,8 +45,8 @@ public class TecnicoModel extends PersistModelAbstract
     
     public int create() throws ClassNotFoundException, Exception
     {
-        int idContato = this.contato.create();
-        int idEndereco = this.endereco.create();
+        this.contato.create();
+        this.endereco.create();
         
         String sql = "INSERT INTO tecnico (nome, cpf, ativo, id_contato, id_endereco) VALUES (?,?,?,?,?)";
         
@@ -112,6 +109,33 @@ public class TecnicoModel extends PersistModelAbstract
             tecnico.add(tecnicoModel);
         }
         return tecnico;
+    }
+    
+    public void update() throws ClassNotFoundException, SQLException, Exception{
+        
+        this.endereco.update();
+        this.contato.update();
+        
+        String sql = "Update tecnico set nome = ?, cpf = ?, ativo = ?  where id = ?";
+        PreparedStatement stmt = this.getConexao().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        stmt.setString(1, this.getNome());
+        stmt.setString(2, this.getCpf());
+        stmt.setString(3, this.getAtivo());
+        stmt.setString(4, String.valueOf(this.getId()));
+        
+        try
+        {
+            if (stmt.execute() == true ){
+                System.out.println("Funcionou tecnico");
+            }else {
+                 System.out.println("Não Funcionou tecnico"); 
+            }
+           // stmt.executeUpdate();
+            
+        } catch(SQLException e)
+        {
+            throw new RuntimeException() ;
+        }   
     }
 
     public int getId() {

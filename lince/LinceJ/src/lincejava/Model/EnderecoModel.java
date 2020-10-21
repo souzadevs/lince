@@ -19,8 +19,6 @@ public class EnderecoModel extends PersistModelAbstract
 {
 
     private int id;
-
-    
     private PaisModel pais;
     private EstadoModel estado;
     private String cidade;
@@ -66,9 +64,34 @@ public class EnderecoModel extends PersistModelAbstract
         
     }
     
-    public void update() {
-
-    }
+    public void update() throws ClassNotFoundException, SQLException, Exception {
+     
+        String sql = "Update endereco set id_pais = ?, id_estado = ?, cidade = ?, bairro = ?, rua = ?, numero = ? where id = ?";
+        
+        PreparedStatement stmt = this.getConexao().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        stmt.setString(1, String.valueOf(this.getPais().getId()));
+        stmt.setString(2, String.valueOf(this.getEstado().getId()));
+        stmt.setString(3, this.getCidade());
+        stmt.setString(4, this.getBairro());
+        stmt.setString(5, this.getRua());
+        stmt.setString(6, this.getNumero());
+        stmt.setString(7, String.valueOf(this.getId()));
+        
+        try
+        {
+            if (stmt.execute() == true ){
+                System.out.println("Funcionou endereco");
+            }else {
+                 System.out.println("Não Funcionou endereco"); 
+            }
+           // stmt.executeUpdate();
+            
+        } catch(SQLException e)
+        {
+            throw new RuntimeException() ;
+        }   
+    } 
+    
 
     public void delete() {
 

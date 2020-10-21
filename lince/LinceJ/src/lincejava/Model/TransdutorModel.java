@@ -9,49 +9,49 @@ import java.util.ArrayList;
 import lincejava.Lib.PersistModelAbstract;
 
 
-public class EquipamentoModel extends PersistModelAbstract
+public class TransdutorModel extends PersistModelAbstract
 {
     private int id;
-    private String descricao;
-    private String numero_serie;
+    private String serial;
     private String marca;
     private String modelo;
-    private String tipoSinal;
-    private String escalaX;
-    private String escalaY;
+    private String eixoX;
+    private String eixoY;
+    private String ativo;
+
     
     
-    public EquipamentoModel() throws ClassNotFoundException, SQLException
+    public TransdutorModel() throws ClassNotFoundException, SQLException
     {
         super();
     }
     
-    public EquipamentoModel(int id, String descricao, String numero_serie, String marca, String modelo, String tipoSinal, String escalaX, String escalaY) throws ClassNotFoundException, SQLException
+    public TransdutorModel(int id, String serial, String marca, String modelo, String eixoX, String eixoY, String ativo) throws ClassNotFoundException, SQLException
     {
-        this.setId(id);
-        this.setDescricao(descricao);
-        this.setNumeroSerie(numero_serie);
-        this.setMarca(marca);
-        this.setModelo(modelo);
-        this.setTipoSinal(tipoSinal);
-        this.setEscalaX(escalaX);
-        this.setEscalaY(escalaY);
+  
+       this.id = id; ;
+       this.serial = serial;
+       this.marca = marca;
+       this.modelo = modelo;
+       this.eixoX = eixoX;
+       this.eixoY = eixoY;
+       this.ativo = ativo;
     }
     
     public void any(){}
     
     public int create() throws SQLException, ClassNotFoundException, Exception {
-        String sql = "INSERT INTO equipamento (descricao, numero_serie, marca, modelo, tipo_sinal, escala_x, escala_y) VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO transdutor (serial, marca, modelo, eixo_x, eixo_y, ativo) VALUES (?,?,?,?,?,?)";
         
         PreparedStatement stmt = this.getConexao().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         
-        stmt.setString(1, this.getDescricao());
-        stmt.setString(2, this.getNumeroSerie());
-        stmt.setString(3, this.getMarca());
-        stmt.setString(4, this.getModelo());
-        stmt.setString(5, this.getTipoSinal());
-        stmt.setString(6, this.getEscalaX());
-        stmt.setString(7, this.getEscalaY());
+        stmt.setString(1, this.getSerial());
+        stmt.setString(2, this.getMarca());
+        stmt.setString(3, this.getModelo());
+        stmt.setString(4, this.getEixoX());
+        stmt.setString(5, this.getEixoY());
+        stmt.setString(6, this.getAtivo());
+
         
         try
         {
@@ -69,24 +69,46 @@ public class EquipamentoModel extends PersistModelAbstract
     
     public ArrayList read() throws SQLException, ClassNotFoundException
     {
-        String sql = "SELECT * FROM equipamento";
+        String sql = "SELECT * FROM transdutor";
         PreparedStatement stmt = getConexao().prepareStatement(sql);
         ResultSet results = stmt.executeQuery();
-        ArrayList<EquipamentoModel> equipamentos = new ArrayList<>();
+        ArrayList<TransdutorModel> transdutores = new ArrayList<>();
         while(results.next()) {
-            equipamentos.add(new EquipamentoModel(
+            transdutores.add(new TransdutorModel(
                     Integer.parseInt(results.getString("id")),
-                    results.getString("descricao"),
-                    results.getString("numero_serie"),
+                    results.getString("serial"),
                     results.getString("marca"),
                     results.getString("modelo"),
-                    results.getString("tipo_sinal"),
-                    results.getString("escala_x"),
-                    results.getString("escala_y")
+                    results.getString("eixo_x"),
+                    results.getString("eixo_y"),
+                    results.getString("ativo")
             ));
         }
         
-        return equipamentos;
+        return transdutores;
+    }
+    
+    public void update() throws ClassNotFoundException, SQLException, Exception{
+
+        
+        String sql = "Update transdutor set serial = ?, marca = ?, modelo = ?, eixo_x = ?, eixo_Y = ?, ativo = ?  where id = ?";
+        PreparedStatement stmt = this.getConexao().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        stmt.setString(1, this.getSerial());
+        stmt.setString(2, this.getMarca());
+        stmt.setString(3, this.getModelo());
+        stmt.setString(4, this.getEixoX());
+        stmt.setString(5, this.getEixoY());
+        stmt.setString(6, this.getAtivo());
+        stmt.setString(7, String.valueOf(this.getId()));
+        
+        try
+        {
+            stmt.executeUpdate();
+            
+        } catch(SQLException e)
+        {
+            throw new Exception(e.getMessage());
+        }   
     }
     
 
@@ -98,20 +120,12 @@ public class EquipamentoModel extends PersistModelAbstract
         this.id = id;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getSerial() {
+        return serial;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public String getNumeroSerie() {
-        return numero_serie;
-    }
-
-    public void setNumeroSerie(String numero_serie) {
-        this.numero_serie = numero_serie;
+    public void setSerial(String serial) {
+        this.serial = serial;
     }
     
     public String getMarca() {
@@ -130,35 +144,27 @@ public class EquipamentoModel extends PersistModelAbstract
         this.modelo = modelo;
     }
 
-    public String getTipoSinal() {
-        return tipoSinal;
+    public String getEixoX() {
+        return eixoX;
     }
 
-    public void setTipoSinal(String tipoSinal) {
-        this.tipoSinal = tipoSinal;
+    public void setEixoX(String eixoX) {
+        this.eixoX = eixoX;
     }
 
-    public String getEscalaX() {
-        return escalaX;
+    public String getEixoY() {
+        return eixoY;
     }
 
-    public void setEscalaX(String escalaX) {
-        this.escalaX = escalaX;
+    public void setEixoY(String eixoY) {
+        this.eixoY = eixoY;
     }
 
-    public String getEscalaY() {
-        return escalaY;
+    public String getAtivo() {
+        return ativo;
     }
 
-    public void setEscalaY(String escalaY) {
-        this.escalaY = escalaY;
+    public void setAtivo(String ativo) {
+        this.ativo = ativo;
     }
-    
-    @Override
-    public String toString()
-    {
-        return this.getId() + "\n" + this.getDescricao();
-    }
-    
-    
 }
