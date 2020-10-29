@@ -92,11 +92,13 @@ public class EmpresaModel extends PersistModelAbstract
              empresaModel.setAtivo(results.getString("ativo"));
 
              contatoModel = new ContatoModel();
-             contatoModel.setId(Integer.parseInt(results.getString("id_contato")));
+             contatoModel.load(Integer.parseInt(results.getString("id_contato")));
+
+             //contatoModel.setId(Integer.parseInt(results.getString("id_contato")));
              //Colocar load aqui para carregar todo o contato
              
              enderecoModel = new EnderecoModel();
-             enderecoModel.setId(Integer.parseInt(results.getString("id_endereco")));
+             enderecoModel.load(Integer.parseInt(results.getString("id_endereco")));
              //Colocar load aqui para carrega todo o endereco
              
              empresaModel.setContato(contatoModel);
@@ -109,6 +111,10 @@ public class EmpresaModel extends PersistModelAbstract
 
     public void update() throws ClassNotFoundException, SQLException, Exception{
         
+        loadChildId(); // Refazer este ponto (colocar o load id dentro do EnderecoModel e ContatoModel)
+        System.out.println(this.getContato().getId());
+        System.out.println(this.getEndereco().getId());
+        System.out.println(this.getId());
         this.endereco.update();
         this.contato.update();
         
@@ -127,8 +133,27 @@ public class EmpresaModel extends PersistModelAbstract
         {
             throw new Exception(e.getMessage());
         } 
-      
     }
+    
+    
+    
+    public void loadChildId() throws ClassNotFoundException, SQLException
+    {
+        String sql = "SELECT empresa.id_contato, empresa.id_endereco FROM empresa WHERE empresa.id = ?";
+        
+        PreparedStatement stmt = getConexao().prepareStatement(sql);
+        
+        stmt.setInt(1, this.getId()); // 1ª correção
+        
+        ResultSet results = stmt.executeQuery();
+        
+        while(results.next()) {
+            this.getContato().setId(Integer.parseInt(results.getString("id_contato")));
+            this.getEndereco().setId(Integer.parseInt(results.getString("id_endereco")));
+        }   
+    }
+
+    
     
     public int getId()
     {

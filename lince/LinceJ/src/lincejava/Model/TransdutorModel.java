@@ -111,6 +111,11 @@ public class TransdutorModel extends PersistModelAbstract
         }   
     }
     
+    public String toString() {
+    
+     return this.getMarca() + " - " + this.getModelo();
+     
+    };
 
     public int getId() {
         return id;

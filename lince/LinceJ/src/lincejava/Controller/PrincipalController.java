@@ -39,8 +39,9 @@ public class PrincipalController {
     @FXML private Button btnFazenda;
     @FXML private Button btnEquipamento;
     @FXML private Button btnTransdutor;
+    @FXML private Button btnNovaSessao;
+    @FXML private Button btnAbrirSessao;
     @FXML private Button btnConfiguracoes;
-    @FXML private Button btnSessao;
     @FXML private Button btnSair;
     private String operacaoCadastro;
 
@@ -55,6 +56,7 @@ public class PrincipalController {
         panes.add(this.paneEquipamento);
         panes.add(this.paneEmpresa);
         panes.add(this.paneTransdutor);
+        panes.add(this.paneNovaSessao);
         panes.add(this.paneImagemInterpretar);
 
 
@@ -83,6 +85,8 @@ public class PrincipalController {
         loadTecnicoTableView();
         loadTecnicoComboBoxData();
     }
+    
+    
     
     @FXML
     void btnEmpresaAction() throws ClassNotFoundException, SQLException 
@@ -119,12 +123,27 @@ public class PrincipalController {
     }
     
     @FXML
-    void btnSessaoAction() throws ClassNotFoundException, SQLException 
+    void btnNovaSessaoAction() throws ClassNotFoundException, SQLException 
     {       
         closePanes();
-        paneImagemInterpretar.setVisible(true);
-      //  loadTecnicoTableView();
-      //  loadTecnicoComboBoxData();
+        loadComboTecnicoSessao();
+        loadComboEquipamentoSessao();
+        loadComboTransdutorSessao();
+        paneNovaSessao.setVisible(true);
+        gridNovaSessao.setVisible(true);
+        gridNovaSessao.setDisable(false);
+        
+       // loadTecnicoComboBoxData();
+
+    }
+    
+    @FXML
+    void btnAbrirSessaoAction() throws ClassNotFoundException, SQLException 
+    {       
+        closePanes();
+        paneNovaSessao.setVisible(true);
+       // loadTecnicoComboBoxData();
+
     }
     
     @FXML
@@ -147,6 +166,7 @@ public class PrincipalController {
     @FXML private Pane paneTecnico;
     @FXML private GridPane gridTecnico;
     @FXML private Button btnAdicionarTecnico;
+    @FXML private JFXTextField txtTecnicoId;    
     @FXML private JFXTextField txtTecnicoNome;    
     @FXML private JFXTextField txtTecnicoCpf;
     @FXML private JFXTextField txtTecnicoEndereco;
@@ -231,6 +251,7 @@ public class PrincipalController {
            this.tglTecnicoAtivo.setSelected(false);
        }
            
+        this.txtTecnicoId.setText(String.valueOf(tecnico.getId()));
         this.txtTecnicoEndereco.setText(tecnico.getEndereco().getRua());   
         this.txtTecnicoNumero.setText(tecnico.getEndereco().getNumero());
         this.txtTecnicoBairro.setText(tecnico.getEndereco().getBairro());
@@ -297,6 +318,7 @@ public class PrincipalController {
             contatoModel.setFixo(this.txtTecnicoFixo.getText());
 
             TecnicoModel tecnicoModel = new TecnicoModel(
+                    Integer.parseInt(txtTecnicoId.getText()),
                     txtTecnicoNome.getText(),
                     txtTecnicoCpf.getText(),
                     tglTecnicoAtivo.isSelected() == true ? "A":"I",
@@ -327,6 +349,7 @@ public class PrincipalController {
     // Controles
     @FXML private Pane paneEmpresa;
     @FXML private Button btnAdicionarEmpresa;
+    @FXML private JFXTextField txtEmpresaId;    
     @FXML private JFXTextField txtEmpresaNome;    
     @FXML private JFXTextField txtEmpresaCnpj;
     @FXML private JFXTextField txtEmpresaEndereco;
@@ -408,7 +431,7 @@ public class PrincipalController {
             contatoModel.setFixo(this.txtEmpresaTelefone.getText());
 
             EmpresaModel empresaModel = new EmpresaModel(
-                    0,
+                    Integer.parseInt(txtEmpresaId.getText()),
                     txtEmpresaNome.getText(),
                     txtEmpresaCnpj.getText(),
                     tglEmpresaAtivo.isSelected() == true ? "A":"I",
@@ -449,6 +472,7 @@ public class PrincipalController {
            this.tglEmpresaAtivo.setSelected(false);
        }
            
+        this.txtEmpresaId.setText(String.valueOf(empresa.getId()));
         this.txtEmpresaEndereco.setText(empresa.getEndereco().getRua());   
         this.txtTecnicoNumero.setText(empresa.getEndereco().getNumero());
         this.txtTecnicoBairro.setText(empresa.getEndereco().getBairro());
@@ -763,6 +787,82 @@ public class PrincipalController {
     
     
     
+     //***************Iniciar nova sessao***********
+    // Controles
+
+    @FXML private Pane paneNovaSessao;
+    @FXML private GridPane gridNovaSessao;
+    @FXML private JFXTextField txtDescricaoSessao;    
+    @FXML private JFXComboBox<TecnicoModel> cbTecnicoSessao;
+    @FXML private JFXComboBox<EquipamentoModel> cbEquipamentoSessao;
+    @FXML private JFXComboBox<TransdutorModel> cbTransdutorSessao;
+    @FXML private Button btnSalvarSessao;
+    @FXML private Button btnCancelarSessao;
+    
+    
+    private void loadComboTecnicoSessao() throws ClassNotFoundException, SQLException
+    {
+        this.tecnicos = new TecnicoModel().read();
+        this.cbTecnicoSessao.setItems(FXCollections.observableArrayList(this.tecnicos));
+        this.cbTecnicoSessao.getSelectionModel().select(2);
+        
+        ArrayList<TecnicoModel> tecnicosSelecionados = new ArrayList<>();
+        
+        this.tecnicos.forEach((tecnico) -> {     
+             tecnicosSelecionados.add(tecnico);
+        });
+        
+        this.cbTecnicoSessao.setItems(FXCollections.observableArrayList(tecnicosSelecionados));
+        this.cbTecnicoSessao.getSelectionModel().selectFirst();
+    }
+    
+    private void loadComboEquipamentoSessao() throws ClassNotFoundException, SQLException
+    {
+        this.equipamentos = new EquipamentoModel().read();
+        this.cbEquipamentoSessao.setItems(FXCollections.observableArrayList(this.equipamentos));
+        this.cbEquipamentoSessao.getSelectionModel().select(2);
+        
+        ArrayList<EquipamentoModel> equipamentosSelecionados = new ArrayList<>();
+        
+        this.equipamentos.forEach((equipamento) -> {     
+             equipamentosSelecionados.add(equipamento);
+        });
+        
+        this.cbEquipamentoSessao.setItems(FXCollections.observableArrayList(equipamentosSelecionados));
+        this.cbEquipamentoSessao.getSelectionModel().selectFirst();
+    }
+    
+    private void loadComboTransdutorSessao() throws ClassNotFoundException, SQLException
+    {
+        this.transdutores = new TransdutorModel().read();
+        this.cbTransdutorSessao.setItems(FXCollections.observableArrayList(this.transdutores));
+        this.cbTransdutorSessao.getSelectionModel().select(2);
+        
+        ArrayList<TransdutorModel> transdutoresSelecionados = new ArrayList<>();
+        
+        this.transdutores.forEach((transdutor) -> {     
+             transdutoresSelecionados.add(transdutor);
+        });
+        
+        this.cbTransdutorSessao.setItems(FXCollections.observableArrayList(transdutoresSelecionados));
+        this.cbTransdutorSessao.getSelectionModel().selectFirst();
+    }
+    
+    @FXML
+    private void btnSalvarSessaoAction() {
+    
+      closePanes();
+    }
+    
+    @FXML
+    private void btnCancelarSessaoAction() {
+    
+      closePanes();
+    }
+    
+    
+    
+    
 //***************Interpretar Imagem***********
     //Controles 
 
@@ -775,7 +875,10 @@ public class PrincipalController {
     
     private ArrayList<PaisModel> paises;
     private ArrayList<EstadoModel> estados;
-  
+    private ArrayList<TecnicoModel> tecnicos;
+    private ArrayList<EquipamentoModel> equipamentos;
+    private ArrayList<TransdutorModel> transdutores;
+
     
     
     

@@ -106,7 +106,13 @@ public class EquipamentoModel extends PersistModelAbstract
         }   
     }
     
-
+    public String toString() {
+    
+     return this.getMarca() + " - " + this.getModelo();
+     
+    };
+    
+    
     public int getId() {
         return id;
     }

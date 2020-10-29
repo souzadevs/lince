@@ -31,8 +31,9 @@ public class TecnicoModel extends PersistModelAbstract
         super();
     }
     
-    public TecnicoModel(String nome, String cpf, String ativo, EnderecoModel endereco, ContatoModel contato) throws ClassNotFoundException, SQLException
+    public TecnicoModel(int id, String nome, String cpf, String ativo, EnderecoModel endereco, ContatoModel contato) throws ClassNotFoundException, SQLException
     {
+        this.id = id;
         this.nome = nome;
         this.cpf = cpf;
         this.ativo = ativo;
@@ -42,6 +43,21 @@ public class TecnicoModel extends PersistModelAbstract
     
     public void any(){}
    
+    public void loadChildId() throws ClassNotFoundException, SQLException
+    {
+        String sql = "SELECT tecnico.id_contato, tecnico.id_endereco FROM tecnico WHERE tecnico.id = ?";
+        
+        PreparedStatement stmt = getConexao().prepareStatement(sql);
+        
+        stmt.setInt(1, this.getId()); // 1ª correção
+        
+        ResultSet results = stmt.executeQuery();
+        
+        while(results.next()) {
+            this.getContato().setId(Integer.parseInt(results.getString("id_contato")));
+            this.getEndereco().setId(Integer.parseInt(results.getString("id_endereco")));
+        }   
+    }
     
     public int create() throws ClassNotFoundException, Exception
     {
@@ -86,7 +102,6 @@ public class TecnicoModel extends PersistModelAbstract
         
         while(results.next()) {
             tecnicoModel = new TecnicoModel();
-
             tecnicoModel.setId(Integer.parseInt(results.getString("id")));
             tecnicoModel.setNome(results.getString("nome"));
             tecnicoModel.setCpf(results.getString("cpf"));
@@ -111,7 +126,16 @@ public class TecnicoModel extends PersistModelAbstract
         return tecnico;
     }
     
-    public void update() throws ClassNotFoundException, SQLException, Exception{
+    public String toString() {
+    
+     return this.getNome();
+     
+    };
+            
+    public void update() throws ClassNotFoundException, SQLException, Exception
+    {
+        
+        loadChildId(); // Refazer este ponto (colocar o load id dentro do EnderecoModel e ContatoModel)
         
         this.endereco.update();
         this.contato.update();
@@ -125,12 +149,7 @@ public class TecnicoModel extends PersistModelAbstract
         
         try
         {
-            if (stmt.execute() == true ){
-                System.out.println("Funcionou tecnico");
-            }else {
-                 System.out.println("Não Funcionou tecnico"); 
-            }
-           // stmt.executeUpdate();
+            stmt.executeUpdate();
             
         } catch(SQLException e)
         {

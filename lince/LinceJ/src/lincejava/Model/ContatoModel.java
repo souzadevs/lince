@@ -34,6 +34,13 @@ public class ContatoModel extends PersistModelAbstract{
         this.celular = celular;
         this.email = email;
     }
+    
+    public void loadId()
+    {
+        String sql = "SELECT id_contato FROM tecnico WHERE id = ?";
+        
+        //PreparedStatement stmt = getConexao().prepareStatement(sql);
+    }
 
     public int create() throws SQLException, ClassNotFoundException, Exception {
         String sql = "INSERT INTO contato (fixo, celular,  email) VALUES (?,?,?)";
@@ -75,33 +82,35 @@ public class ContatoModel extends PersistModelAbstract{
         }
     }
     
+    
+    
     public void update() throws ClassNotFoundException, SQLException, Exception 
     {
-        
-        String sql = "Update contato set fixo = ?, celular = ?, email = ? where id = ?";
+        String sql = "UPDATE contato SET fixo = ?, celular = ?, email = ? where id = ?";
         
         PreparedStatement stmt = this.getConexao().prepareStatement(sql);
+        
         stmt.setString(1, this.getFixo());
         stmt.setString(2, this.getCelular());
         stmt.setString(3, this.getEmail());
-        stmt.setString(4, String.valueOf(this.getId()));
+        stmt.setInt(4, this.getId());
         
         
          try
         {
-            if (stmt.execute() == true ){
-                System.out.println("Funcionou contato");
-            }else {
-                 System.out.println("Não Funcionou contato"); 
-            }
-           // stmt.executeUpdate();
+           stmt.executeUpdate();
             
         } catch(SQLException e)
         {
             throw new RuntimeException() ;
         }   
         
-        
+
+         //   if (stmt.executeUpdate() > 0 ){
+         //       System.out.println("Funcionou contato");
+         //   }else {
+         //        System.out.println("Não Funcionou contato"); 
+         //   }
     }
 
     public void delete() 
