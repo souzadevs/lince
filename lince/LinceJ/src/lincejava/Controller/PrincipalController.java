@@ -15,7 +15,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.TreeItem;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -27,7 +26,6 @@ import lincejava.Model.EstadoModel;
 import lincejava.Model.PaisModel;
 import lincejava.Model.TecnicoModel;
 import javafx.scene.layout.GridPane;
-import javax.swing.JOptionPane;
 import lincejava.Model.TransdutorModel;
 
 public class PrincipalController {
@@ -43,8 +41,23 @@ public class PrincipalController {
     @FXML private Button btnAbrirSessao;
     @FXML private Button btnConfiguracoes;
     @FXML private Button btnSair;
-    private String operacaoCadastro;
+    private String operacaoCadastro; // Variável para informar qual operação está sendo realizada (Add ou Edit)
 
+    
+    
+        // Procedimentos
+    
+    private ArrayList<PaisModel> paises;
+    private ArrayList<EstadoModel> estados;
+    private ArrayList<EmpresaModel> empresas;
+    private ArrayList<TecnicoModel> tecnicos;
+    private ArrayList<EquipamentoModel> equipamentos;
+    private ArrayList<TransdutorModel> transdutores;
+
+    
+    
+    
+    
     
 
     //Procedimentos
@@ -56,7 +69,7 @@ public class PrincipalController {
         panes.add(this.paneEquipamento);
         panes.add(this.paneEmpresa);
         panes.add(this.paneTransdutor);
-        panes.add(this.paneNovaSessao);
+        panes.add(this.paneCaptura);
         panes.add(this.paneImagemInterpretar);
 
 
@@ -126,14 +139,14 @@ public class PrincipalController {
     void btnNovaSessaoAction() throws ClassNotFoundException, SQLException 
     {       
         closePanes();
+        loadComboEmpresaSessao();
         loadComboTecnicoSessao();
         loadComboEquipamentoSessao();
         loadComboTransdutorSessao();
-        paneNovaSessao.setVisible(true);
-        gridNovaSessao.setVisible(true);
-        gridNovaSessao.setDisable(false);
+        paneCaptura.setVisible(true);
+        paneCapturaSessaoInfo.setVisible(true);
+        paneCapturaSessaoInfo.setPrefHeight(300);
         
-       // loadTecnicoComboBoxData();
 
     }
     
@@ -141,7 +154,7 @@ public class PrincipalController {
     void btnAbrirSessaoAction() throws ClassNotFoundException, SQLException 
     {       
         closePanes();
-        paneNovaSessao.setVisible(true);
+        //paneNovaSessao.setVisible(true);
        // loadTecnicoComboBoxData();
 
     }
@@ -787,18 +800,49 @@ public class PrincipalController {
     
     
     
-     //***************Iniciar nova sessao***********
+     //***************Captura nova sessao***********
     // Controles
 
-    @FXML private Pane paneNovaSessao;
-    @FXML private GridPane gridNovaSessao;
+    @FXML private Pane paneCaptura;
+
+    //Dados da sessao
+    @FXML private Pane paneCapturaSessaoInfo;
+    @FXML private GridPane gridSessaoInfoCaptura;  
     @FXML private JFXTextField txtDescricaoSessao;    
+    @FXML private JFXComboBox<EmpresaModel> cbEmpresaSessao;
     @FXML private JFXComboBox<TecnicoModel> cbTecnicoSessao;
     @FXML private JFXComboBox<EquipamentoModel> cbEquipamentoSessao;
     @FXML private JFXComboBox<TransdutorModel> cbTransdutorSessao;
-    @FXML private Button btnSalvarSessao;
-    @FXML private Button btnCancelarSessao;
+    @FXML private Button btnAlterarInfoSessao;
+    @FXML private Button btnCancelarInfoSessao;
+    @FXML private Button btnProximoInfoSessao;
     
+    
+        //Dados do animal
+    @FXML private Pane paneCapturaAnimalInfo;
+    @FXML private GridPane gridAnimalInfoCaptura;
+    @FXML private JFXTextField txtAnimalId;    
+    @FXML private JFXTextField txtDataCaptura;    
+    @FXML private JFXTextField txtAnimalRaca;   
+    @FXML private JFXTextField txtAnimalPeso;    
+    @FXML private JFXTextField txtAnimalGm;    
+
+    
+    private void loadComboEmpresaSessao() throws ClassNotFoundException, SQLException
+    {
+        this.empresas = new EmpresaModel().read();
+        this.cbEmpresaSessao.setItems(FXCollections.observableArrayList(this.empresas));
+        this.cbEmpresaSessao.getSelectionModel().select(2);
+        
+        ArrayList<EmpresaModel> empresasSelecionadas = new ArrayList<>();
+        
+        this.empresas.forEach((empresa) -> {     
+             empresasSelecionadas.add(empresa);
+        });
+        
+        this.cbEmpresaSessao.setItems(FXCollections.observableArrayList(empresasSelecionadas));
+        this.cbEmpresaSessao.getSelectionModel().selectFirst();
+    }
     
     private void loadComboTecnicoSessao() throws ClassNotFoundException, SQLException
     {
@@ -848,6 +892,28 @@ public class PrincipalController {
         this.cbTransdutorSessao.getSelectionModel().selectFirst();
     }
     
+    
+    @FXML
+    private void btnAlterarInfoSessaoAction() {
+    
+    }
+    
+    @FXML
+    private void btnCancelarInfoSessaoAction() {
+    
+    }
+    
+    @FXML
+    private void btnProximoInfoSessaoAction() {
+        
+      // this.paneCaptura.setPrefHeight(420);
+      this.paneCapturaAnimalInfo.setVisible(true);
+       this.gridAnimalInfoCaptura.setDisable(false);
+       this.gridAnimalInfoCaptura.setVisible(true);
+       this.txtDataCaptura.requestFocus();
+    
+    }
+
     @FXML
     private void btnSalvarSessaoAction() {
     
@@ -871,16 +937,7 @@ public class PrincipalController {
 
 
     
-    // Procedimentos
-    
-    private ArrayList<PaisModel> paises;
-    private ArrayList<EstadoModel> estados;
-    private ArrayList<TecnicoModel> tecnicos;
-    private ArrayList<EquipamentoModel> equipamentos;
-    private ArrayList<TransdutorModel> transdutores;
 
-    
-    
     
     
     

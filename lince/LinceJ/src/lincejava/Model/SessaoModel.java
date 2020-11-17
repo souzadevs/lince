@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package lincejava.Model;
 
 import java.sql.Date;
@@ -14,21 +10,26 @@ import java.sql.Date;
 public class SessaoModel
 {
     private int id;
-    private Date dtCriacaoSessao;
     private EquipamentoModel equipamento;
     private EmpresaModel empresa;
+    private TecnicoModel tecnico;
+    private TransdutorModel transdutor;
+    private Date log;
+
 
     public SessaoModel()
     {
         
     }
 
-    public SessaoModel(int id, Date dtCriacaoSessao, EquipamentoModel equipamento, EmpresaModel empresa)
+    public SessaoModel(int id, EquipamentoModel equipamento, EmpresaModel empresa, TecnicoModel tecnico, TransdutorModel transdutor, Date log)
     {
         this.id = id;
-        this.dtCriacaoSessao = dtCriacaoSessao;
         this.equipamento = equipamento;
         this.empresa = empresa;
+        this.tecnico = tecnico;
+        this.transdutor = transdutor;
+        this.log= log;
     }
     
     public int getId()
@@ -40,17 +41,16 @@ public class SessaoModel
     {
         this.id = id;
     }
-
-    public Date getDtCriacaoSessao()
+    public Date getLog()
     {
-        return dtCriacaoSessao;
+        return log;
     }
 
-    public void setDtCriacaoSessao(Date dtCriacaoSessao)
+    public void setLog(Date log)
     {
-        this.dtCriacaoSessao = dtCriacaoSessao;
+        this.log = log;
     }
-
+    
     public EquipamentoModel getEquipamento()
     {
         return equipamento;
@@ -70,4 +70,25 @@ public class SessaoModel
     {
         this.empresa = empresa;
     }  
+    
+    public TecnicoModel getTecnico()
+    {
+        return tecnico;
+    }
+
+    public void setTecnico(TecnicoModel tecnico)
+    {
+        this.tecnico = tecnico;
+    }  
+    
+    public TransdutorModel getTransdutor()
+    {
+        return transdutor;
+    }
+
+    public void setTransdutor(TransdutorModel transdutor)
+    {
+        this.transdutor = transdutor;
+    } 
+    
 }

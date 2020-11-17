@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package lincejava.Model;
 
 import java.sql.PreparedStatement;
@@ -12,10 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import lincejava.Lib.PersistModelAbstract;
 
-/**
- *
- * @author Bruno Araujo
- */
+
 public class EmpresaModel extends PersistModelAbstract
 {
     private int id;
@@ -152,7 +145,11 @@ public class EmpresaModel extends PersistModelAbstract
             this.getEndereco().setId(Integer.parseInt(results.getString("id_endereco")));
         }   
     }
-
+    public String toString() {
+    
+     return this.getNome();
+     
+    };
     
     
     public int getId()
