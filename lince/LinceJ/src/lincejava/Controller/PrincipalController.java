@@ -1,5 +1,7 @@
 package lincejava.Controller;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import java.sql.SQLException;
@@ -12,6 +14,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
@@ -42,6 +46,11 @@ public class PrincipalController {
     @FXML private Button btnConfiguracoes;
     @FXML private Button btnSair;
     private String operacaoCadastro; // Variável para informar qual operação está sendo realizada (Add ou Edit)
+    private int AolCount;
+    private int EgpCount;
+    private int PrgCount;
+    private int GimCount;
+    @FXML private Spinner spinAOL;
 
     
     
@@ -54,10 +63,6 @@ public class PrincipalController {
     private ArrayList<EquipamentoModel> equipamentos;
     private ArrayList<TransdutorModel> transdutores;
 
-    
-    
-    
-    
     
 
     //Procedimentos
@@ -145,7 +150,7 @@ public class PrincipalController {
         loadComboTransdutorSessao();
         paneCaptura.setVisible(true);
         paneCapturaSessaoInfo.setVisible(true);
-        paneCapturaSessaoInfo.setPrefHeight(300);
+        paneCapturaSessaoInfo.setPrefHeight(350);
         
 
     }
@@ -547,6 +552,7 @@ public class PrincipalController {
     @FXML private Button btnCancelarEquipamento;
     @FXML private ImageView btnFechaPanePesquisar;
     @FXML private TableView<EquipamentoModel> equipamentoTableView;
+    @FXML private JFXTextField txtEquipamentoId;    
     @FXML private JFXTextField txtEquipamentoSerial;
     @FXML private JFXTextField txtEquipamentoMarca;
     @FXML private JFXTextField txtEquipamentoModelo;
@@ -594,7 +600,7 @@ public class PrincipalController {
         
 
             EquipamentoModel equipamento = new EquipamentoModel(
-                    0,
+                    Integer.parseInt(txtEquipamentoId.getText()),
                     this.txtEquipamentoSerial.getText(),
                     this.txtEquipamentoMarca.getText(),
                     this.txtEquipamentoModelo.getText(),
@@ -678,6 +684,7 @@ public class PrincipalController {
     @FXML private Button btnSalvarTransdutor;
     @FXML private Button btnCancelarTransdutor;
     @FXML private TableView<TransdutorModel> transdutorTableView;
+    @FXML private JFXTextField txtTransdutorId;
     @FXML private JFXTextField txtTransdutorSerial;
     @FXML private JFXTextField txtTransdutorMarca;
     @FXML private JFXTextField txtTransdutorModelo;
@@ -718,7 +725,7 @@ public class PrincipalController {
         
 
             TransdutorModel transdutor = new TransdutorModel(
-                    0,
+                    Integer.parseInt(txtTransdutorId.getText()),
                     this.txtTransdutorSerial.getText(),
                     this.txtTransdutorMarca.getText(),
                     this.txtTransdutorModelo.getText(),
@@ -816,17 +823,49 @@ public class PrincipalController {
     @FXML private Button btnAlterarInfoSessao;
     @FXML private Button btnCancelarInfoSessao;
     @FXML private Button btnProximoInfoSessao;
+    @FXML private JFXCheckBox chkAolSelecionado;
+    @FXML private JFXCheckBox chkEgpSelecionado;
+    @FXML private JFXCheckBox chkPrgSelecionado;
+    @FXML private JFXCheckBox chkGimSelecionado;
+
     
-    
-        //Dados do animal
+    //Dados do animal
     @FXML private Pane paneCapturaAnimalInfo;
     @FXML private GridPane gridAnimalInfoCaptura;
     @FXML private JFXTextField txtAnimalId;    
-    @FXML private JFXTextField txtDataCaptura;    
+    @FXML private JFXDatePicker txtDataCaptura;    
     @FXML private JFXTextField txtAnimalRaca;   
     @FXML private JFXTextField txtAnimalPeso;    
-    @FXML private JFXTextField txtAnimalGm;    
+    @FXML private JFXTextField txtAnimalGm;  
+    @FXML private Button btnSalvarAnimal;
 
+    //Botões de status caotura
+    
+    @FXML private Button btnAolCapturar;
+    @FXML private Pane paneEstatistica;
+    //@FXML private Spinner cntAol;
+    @FXML private Spinner cntEgp;
+    @FXML private Spinner cntGim;
+
+
+    SpinnerValueFactory<Integer> gradesValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,10,1);
+    this.spinAOL.setValueFactory(gradesValueFactory);
+    
+    @FXML
+    private void btnSalvarAnimalAction(){
+        
+       // this.btnAolCapturar.setText("0" & "/" & this.cntAol.value);
+        this.paneEstatistica.setVisible(true);
+        this.btnAolCapturar.setText("0");     
+    }
+    
+    @FXML
+    private void btnAolCapturarAction(){
+        
+        this.btnAolCapturar.setText("1");
+        this.btnAolCapturar.setStyle("fx-background-color: green");
+       
+    }
     
     private void loadComboEmpresaSessao() throws ClassNotFoundException, SQLException
     {
@@ -908,9 +947,10 @@ public class PrincipalController {
         
       // this.paneCaptura.setPrefHeight(420);
       this.paneCapturaAnimalInfo.setVisible(true);
-       this.gridAnimalInfoCaptura.setDisable(false);
-       this.gridAnimalInfoCaptura.setVisible(true);
-       this.txtDataCaptura.requestFocus();
+      this.gridAnimalInfoCaptura.setDisable(false);
+      this.gridAnimalInfoCaptura.setVisible(true);
+      this.paneCapturaSessaoInfo.setDisable(true);
+//    this.gridSessaoInfoCaptura.setDisable(true);
     
     }
 
@@ -951,6 +991,7 @@ public class PrincipalController {
         //loadComboBoxData();
         loadEquipamentoFormData();
         //loadEmpresaFormData();
+
     }
     
     @FXML 
