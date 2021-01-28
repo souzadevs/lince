@@ -31,7 +31,7 @@ public class LoginController {
     {
         if("saulo".equals(txtUsuario.getText()) && "123".equals(txtSenha.getText())) {
             //System.out.println("Programadores java!!!");
-            Parent ap = FXMLLoader.load(getClass().getResource("/lincejava/View/Principal.fxml")); //Carrego o anchor pane do arquivo
+            Parent ap = FXMLLoader.load(getClass().getResource("/lincejava/View/Login.fxml")); //Carrego o anchor pane do arquivo
         
             Scene sc = new Scene(ap); //Crio uma cena com o AnchorPane carregado (nossa tela principal)
             

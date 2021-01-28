@@ -13,16 +13,6 @@ CREATE TABLE IF NOT EXISTS contato(
 );
 
 
-
-DROP TABLE IF EXISTS paciente;
-CREATE TABLE IF NOT EXISTS paciente(
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    peso VARCHAR(50) NOT NULL,
-    grupo_manejo VARCHAR(45) NOT NULL,
-    raca VARCHAR(45) NOT NULL,
-    log DATETIME DEFAULT current_timestamp
-);
-
 DROP TABLE IF EXISTS equipamento;
 CREATE TABLE IF NOT EXISTS equipamento(
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -73,16 +63,26 @@ CREATE TABLE IF NOT EXISTS empresa(
 DROP TABLE IF EXISTS sessao;
 CREATE TABLE IF NOT EXISTS sessao(
     id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	descricao varchar(50) NOT NULL,
+    dt_criacao_sessao DATETIME NOT NULL,
+    id_equipamento INT NOT NULL,
     id_empresa INT NOT NULL,
     id_tecnico INT NOT NULL,
-    id_equipamento INT NOT NULL,
-	id_transdutor INT NOT NULL,
-    log DATETIME DEFAULT current_timestamp,
+    CONSTRAINT fk_sessao_id_tecnico FOREIGN KEY (id_tecnico) REFERENCES tecnico (id),
     CONSTRAINT fk_sessao_id_equipamento FOREIGN KEY (id_equipamento) REFERENCES equipamento (id),
     CONSTRAINT fk_sessao_id_empresa 	FOREIGN KEY (id_empresa) REFERENCES empresa (id),
-	CONSTRAINT fk_sessao_id_tecnico FOREIGN KEY (id_tecnico) REFERENCES tecnico (id),
-	CONSTRAINT fk_sessao_id_transdutor FOREIGN KEY (id_transdutor) REFERENCES transdutor (id)
+    log DATETIME DEFAULT current_timestamp
+);
+
+DROP TABLE IF EXISTS paciente;
+CREATE TABLE IF NOT EXISTS paciente(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    peso VARCHAR(50) NOT NULL,
+    grupo_manejo VARCHAR(45) NOT NULL,
+    raca VARCHAR(45) NOT NULL,
+    id_sessao INT NOT NULL,
+    id_animal VARCHAR(255) NOT NULL,
+    log DATETIME DEFAULT current_timestamp,
+    CONSTRAINT `fk_paciente_id_sessao` FOREIGN KEY (id_sessao) REFERENCES sessao (id)
 );
 
 DROP TABLE IF EXISTS imagem;
@@ -91,27 +91,6 @@ CREATE TABLE IF NOT EXISTS imagem(
     id_paciente INT NOT NULL UNIQUE,
     tipo VARCHAR(45) NOT NULL,
     CONSTRAINT fk_imagem_id_paciente 	FOREIGN KEY (id_paciente) REFERENCES paciente (id),
-    log DATETIME DEFAULT current_timestamp
-);
-
-DROP TABLE IF EXISTS paciente_sessao;
-CREATE TABLE IF NOT EXISTS paciente_sessao(
-	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	id_sessao INT NOT NULL,
-    id_paciente INT NOT NULL,
-	CONSTRAINT fk_paciente_sessao_id_sessao 		FOREIGN KEY (id_sessao) REFERENCES sessao (id),
-    CONSTRAINT fk_paciente_sessao_id_paciente 		FOREIGN KEY (id_paciente) REFERENCES paciente (id),
-    log DATETIME DEFAULT current_timestamp
-);
-
-
-DROP TABLE IF EXISTS imagem_sessao;
-CREATE TABLE IF NOT EXISTS imagem_sessao(
-	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	id_sessao INT NOT NULL,
-    id_imagem INT NOT NULL,
-	CONSTRAINT fk_imagem_id_sessao 		FOREIGN KEY (id_sessao) REFERENCES sessao (id),
-    CONSTRAINT fk_imagem_id_imagem 		FOREIGN KEY (id_imagem) REFERENCES imagem (id),
     log DATETIME DEFAULT current_timestamp
 );
 
@@ -260,11 +239,5 @@ INSERT INTO `estado` (`nome`, `id_pais`) VALUES
 ("Vichada", 48);
 
 
-use lince;
-select * from transdutor;
 
-describe equipamento;
-
-
-alter table equipamento add column ativo varchar(1);
 

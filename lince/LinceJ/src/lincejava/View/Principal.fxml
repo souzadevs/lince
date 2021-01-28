@@ -12,6 +12,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.SplitMenuButton?>
@@ -114,7 +115,7 @@
                         </ImageView>
                      </graphic>
                   </SplitMenuButton>
-                  <Button fx:id="btnConfiguracoes" mnemonicParsing="false" prefHeight="70.0" prefWidth="100.0">
+                  <Button fx:id="btnSettings" mnemonicParsing="false" onAction="#btnSettingsAction" prefHeight="70.0" prefWidth="100.0">
                      <graphic>
                         <ImageView fitHeight="59.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -1025,7 +1026,7 @@
                               <Insets />
                            </opaqueInsets>
                         </Pane>
-                        <Pane fx:id="paneCaptura" layoutX="10.0" layoutY="10.0" prefHeight="729.0" prefWidth="950.0" style="-fx-background-color: #383838;">
+                        <Pane fx:id="paneCaptura" layoutX="10.0" layoutY="10.0" prefHeight="729.0" prefWidth="950.0" style="-fx-background-color: #383838;" visible="false">
                            <children>
                               <GridPane hgap="5.0" layoutX="25.0" layoutY="14.0" prefHeight="670.0" prefWidth="900.0" vgap="5.0">
                                  <columnConstraints>
@@ -1033,16 +1034,16 @@
                                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="895.0" minWidth="10.0" prefWidth="377.0" />
                                  </columnConstraints>
                                  <rowConstraints>
-                                    <RowConstraints maxHeight="534.0" minHeight="10.0" prefHeight="383.0" vgrow="SOMETIMES" />
-                                    <RowConstraints maxHeight="505.0" minHeight="0.0" prefHeight="133.0" vgrow="SOMETIMES" />
-                                    <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="134.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="534.0" minHeight="10.0" prefHeight="392.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="505.0" minHeight="0.0" prefHeight="181.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="505.0" minHeight="10.0" prefHeight="77.0" vgrow="SOMETIMES" />
                                     <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
                                     <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
                                  </rowConstraints>
                                  <children>
-                                    <Pane fx:id="paneCapturaSessaoInfo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="320.0" prefWidth="377.0" style="-fx-background-color: #FAFAf7;" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                                    <Pane fx:id="paneCapturaSessaoInfo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="364.0" prefWidth="377.0" style="-fx-background-color: #FAFAf7;" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="TOP">
                                        <children>
-                                          <GridPane fx:id="gridISessaoInfoCaptura" hgap="10.0" layoutX="7.0" layoutY="14.0" prefHeight="294.0" prefWidth="363.0" style="-fx-border-color: black;" vgap="5.0">
+                                          <GridPane fx:id="gridISessaoInfoCaptura" hgap="10.0" layoutX="7.0" layoutY="14.0" prefHeight="345.0" prefWidth="356.0" style="-fx-border-color: black;" vgap="5.0">
                                              <columnConstraints>
                                                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="158.0" minWidth="10.0" prefWidth="15.0" />
                                                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" prefWidth="104.0" />
@@ -1059,8 +1060,9 @@
                                                 <RowConstraints maxHeight="73.0" minHeight="8.0" prefHeight="25.0" vgrow="SOMETIMES" />
                                                 <RowConstraints maxHeight="74.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
                                                 <RowConstraints maxHeight="72.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
-                                                <RowConstraints maxHeight="89.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
-                                                <RowConstraints maxHeight="113.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="89.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="113.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="113.0" minHeight="10.0" prefHeight="73.0" vgrow="SOMETIMES" />
                                              </rowConstraints>
                                              <children>
                                                 <Label text="Informações da sessão" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.halignment="CENTER">
@@ -1097,27 +1099,24 @@
                                                    </font>
                                                 </Label>
                                                 <JFXComboBox fx:id="cbTransdutorSessao" focusColor="#ee0f0b" prefHeight="25.0" prefWidth="140.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="6" GridPane.valignment="BOTTOM" />
-                                                <Button fx:id="btnAlterarInfoSessao" alignment="CENTER" disable="true" layoutX="20.0" layoutY="20.0" minWidth="53.0" mnemonicParsing="false" onAction="#btnAlterarInfoSessaoAction" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #29E000#29E000;" text="Alterar" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
-                                                   <font>
-                                                      <Font size="15.0" />
-                                                   </font>
-                                                </Button>
-                                                <Button fx:id="btnCancelarInfoSessao" minWidth="53.0" mnemonicParsing="false" onAction="#btnCancelarInfoSessaoAction" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #212121;" text="Cancelar" textFill="#fcf9f9" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="8">
-                                                   <font>
-                                                      <Font size="15.0" />
-                                                   </font>
-                                                </Button>
-                                                <Button fx:id="btnProximoInfoSessao" minWidth="53.0" mnemonicParsing="false" onAction="#btnProximoInfoSessaoAction" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #0099FF;" text="Próximo" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="8">
-                                                   <font>
-                                                      <Font size="15.0" />
-                                                   </font>
-                                                </Button>
+                                                <JFXCheckBox fx:id="chkAolClick" onAction="#chkAolClickAction" text="AOL" GridPane.columnIndex="3" GridPane.rowIndex="5" />
                                                 <Spinner fx:id="spinAOL" GridPane.columnIndex="4" GridPane.rowIndex="5" />
-                                                <JFXCheckBox fx:id="chkAolSelecionado" text="AOL" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-                                                <JFXCheckBox fx:id="chkEgpSelecionado" text="EGP" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-                                                <JFXCheckBox fx:id="chkGimSelecionado" text="GIM" GridPane.columnIndex="3" GridPane.rowIndex="7" />
-                                                <Spinner fx:id="spinEGP" GridPane.columnIndex="4" GridPane.rowIndex="6" />
+                                                <JFXCheckBox fx:id="chkEgpClick" onAction="#chkEgpClickAction" text="EGP" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+                                                <Spinner fx:id="spinEGP" layoutX="265.0" layoutY="251.0" GridPane.columnIndex="4" GridPane.rowIndex="6" />
+                                                <JFXCheckBox fx:id="chkGimClick" onAction="#chkGimClickAction" text="GIM" GridPane.columnIndex="3" GridPane.rowIndex="7" />
                                                 <Spinner fx:id="spinGIM" GridPane.columnIndex="4" GridPane.rowIndex="7" />
+                                                <JFXCheckBox fx:id="chkPfgClick" layoutX="202.0" layoutY="168.0" onAction="#chkPfgClickAction" text="PFG" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+                                                <Spinner fx:id="spinPFG" layoutX="270.0" layoutY="163.0" GridPane.columnIndex="4" GridPane.rowIndex="8" />
+                                                <Button fx:id="btnCancelarInfoSessao" minWidth="53.0" mnemonicParsing="false" onAction="#btnCancelarInfoSessaoAction" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #212121;" text="Cancelar" textFill="#fcf9f9" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="9">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button fx:id="btnProximoInfoSessao" minWidth="53.0" mnemonicParsing="false" onAction="#btnProximoInfoSessaoAction" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #0099FF;" text="Próximo" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="9">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </Button>
                                              </children>
                                              <opaqueInsets>
                                                 <Insets />
@@ -1133,14 +1132,14 @@
                                           <Image url="@../../../Icons/AOL.jpeg" />
                                        </image>
                                     </ImageView>
-                                    <Pane fx:id="paneCapturaAnimalInfo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="282.0" prefWidth="377.0" style="-fx-background-color: #FAFAf7;" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                    <Pane fx:id="paneCapturaAnimalInfo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="282.0" prefWidth="377.0" style="-fx-background-color: #FAFAf7;" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                        <children>
                                           <GridPane fx:id="gridAnimalInfoCaptura" hgap="10.0" layoutX="13.0" layoutY="14.0" prefHeight="257.0" prefWidth="355.0" style="-fx-border-color: black;" vgap="5.0">
                                              <columnConstraints>
                                                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="203.0" minWidth="8.0" prefWidth="8.0" />
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="203.0" minWidth="10.0" prefWidth="160.0" />
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="108.0" minWidth="10.0" prefWidth="26.0" />
-                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="152.0" minWidth="10.0" prefWidth="88.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="203.0" minWidth="10.0" prefWidth="118.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="108.0" minWidth="10.0" prefWidth="80.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="152.0" minWidth="10.0" prefWidth="44.0" />
                                                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="141.0" minWidth="10.0" prefWidth="65.0" />
                                              </columnConstraints>
                                              <rowConstraints>
@@ -1186,12 +1185,12 @@
                                                 <JFXTextField fx:id="txtAnimalGm1" text="GM12" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="TOP" />
                                                 <JFXRadioButton selected="true" text="M" GridPane.columnIndex="4" GridPane.rowIndex="4" />
                                                 <JFXRadioButton text="F" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-                                                <Button fx:id="btnSalvarAnimal" minWidth="53.0" mnemonicParsing="false" onAction="#btnSalvarAnimalAction" prefHeight="29.0" prefWidth="112.0" style="-fx-background-color: #0099FF;" text="Salvar (Enter)" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+                                                <Button fx:id="btnProximoAnimal" minWidth="53.0" mnemonicParsing="false" onAction="#btnProximoAnimalAction" prefHeight="29.0" prefWidth="89.0" style="-fx-background-color: #0099FF;" text="Próximo" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
                                                    <font>
                                                       <Font size="15.0" />
                                                    </font>
                                                 </Button>
-                                                <Button fx:id="btnFinalizarSessao" alignment="CENTER" disable="true" minWidth="53.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="90.0" style="-fx-background-color: #29E000#29E000;" text="Finalizar" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8">
+                                                <Button fx:id="btnFinalizarSessao" alignment="CENTER" minWidth="53.0" mnemonicParsing="false" onAction="#btnFinalizarSessaoAction" prefHeight="29.0" prefWidth="73.0" style="-fx-background-color: #29E000#29E000;" text="Finalizar" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8">
                                                    <font>
                                                       <Font size="15.0" />
                                                    </font>
@@ -1201,40 +1200,49 @@
                                                       <Font size="18.0" />
                                                    </font>
                                                 </Label>
+                                                <Button fx:id="btnNovoAnimal" minWidth="53.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="93.0" style="-fx-background-color: #212121;" text="Novo" textFill="#fcf9f9" GridPane.columnIndex="2" GridPane.rowIndex="8">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </Button>
                                              </children>
                                           </GridPane>
                                        </children>
                                     </Pane>
-                                    <Pane fx:id="paneEstatistica" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="116.0" prefWidth="421.0" style="-fx-background-color: #0390fc#0390fc; -fx-border-radius: 100;" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                    <Pane fx:id="paneEstatistica" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="131.0" prefWidth="504.0" style="-fx-background-color: #FAFAf7 #FAFAf7;" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                        <children>
-                                          <GridPane hgap="10.0" layoutX="16.0" layoutY="11.0" prefHeight="110.0" prefWidth="390.0" vgap="10.0">
+                                          <GridPane hgap="10.0" layoutX="14.0" layoutY="21.0" prefHeight="107.0" prefWidth="483.0" vgap="10.0">
                                             <columnConstraints>
-                                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="111.0" minWidth="10.0" prefWidth="111.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="116.0" minWidth="10.0" prefWidth="105.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="116.0" minWidth="10.0" prefWidth="111.0" />
+                                                <ColumnConstraints />
                                             </columnConstraints>
                                             <rowConstraints>
-                                                <RowConstraints maxHeight="112.0" minHeight="10.0" prefHeight="112.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="112.0" minHeight="10.0" prefHeight="56.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="112.0" minHeight="10.0" prefHeight="97.0" valignment="CENTER" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                              <children>
-                                                <JFXButton fx:id="btnGimCapturar" prefHeight="75.0" prefWidth="80.0" style="-fx-background-color: #4efc03#4efc03; -fx-background-radius: 100;" text="GIM" GridPane.columnIndex="3" GridPane.halignment="CENTER">
+                                                <JFXButton fx:id="btnAolCapturar" onAction="#btnAolCapturarAction" prefHeight="60.0" prefWidth="100.0" style="-fx-background-color: #f57373#f57373;" text="AOL" GridPane.halignment="CENTER">
                                                    <font>
                                                       <Font size="18.0" />
                                                    </font></JFXButton>
-                                                <ImageView fitHeight="88.0" fitWidth="77.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
-                                                <JFXButton fx:id="btnAolCapturar" onAction="#btnAolCapturarAction" prefHeight="75.0" prefWidth="80.0" style="-fx-background-color: #29E000#29E000 #29E000#29E000; -fx-background-radius: 100;" text="AOL">
+                                                <JFXButton fx:id="btnEgpCapturar" onAction="#btnEgpCapturarAction" prefHeight="60.0" prefWidth="100.0" style="-fx-background-color: #f57373#f57373;" text="PIC" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                                                    <font>
                                                       <Font size="18.0" />
                                                    </font></JFXButton>
-                                                <JFXButton fx:id="btnPicCapturar" prefHeight="75.0" prefWidth="80.0" style="-fx-background-color: #29E000#29E000 #29E000#29E000; -fx-background-radius: 100;" text="PIC" GridPane.columnIndex="1">
+                                                <JFXButton fx:id="btnGimCapturar" onAction="#btnGimCapturarAction" prefHeight="60.0" prefWidth="100.0" style="-fx-background-color: #f57373#f57373;" text="GIM" GridPane.columnIndex="2" GridPane.halignment="CENTER">
                                                    <font>
                                                       <Font size="18.0" />
                                                    </font></JFXButton>
-                                                <JFXButton fx:id="btnPrgCapturar" prefHeight="75.0" prefWidth="80.0" style="-fx-background-color: #29E000#29E000 #29E000#29E000; -fx-background-radius: 100;" text="PRG" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                                                <JFXButton fx:id="btnPfgCapturar" onAction="#btnPfgCapturarAction" prefHeight="60.0" prefWidth="100.0" style="-fx-background-color: #f57373#f57373;" text="PFG" GridPane.columnIndex="3" GridPane.halignment="CENTER">
                                                    <font>
                                                       <Font size="18.0" />
                                                    </font></JFXButton>
+                                                <ProgressIndicator fx:id="pbiPfg" prefHeight="55.0" prefWidth="46.0" progress="0.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                                                <ProgressIndicator fx:id="pbiAol" layoutX="372.0" layoutY="97.0" prefHeight="20.0" prefWidth="10.0" progress="0.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                                                <ProgressIndicator fx:id="pbiEgp" layoutX="10.0" layoutY="97.0" prefHeight="45.0" prefWidth="43.0" progress="0.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                                                <ProgressIndicator fx:id="pbiGim" layoutX="382.0" layoutY="107.0" prefHeight="54.0" prefWidth="58.0" progress="0.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                                              </children>
                                           </GridPane>
                                        </children></Pane>
@@ -1244,6 +1252,59 @@
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
+                        </Pane>
+                        <Pane fx:id="paneSettings" layoutX="31.0" layoutY="27.0" onMouseClicked="#btnFecharJanelas" prefHeight="356.0" prefWidth="493.0" style="-fx-background-color: #FAFAF7;" visible="false">
+                           <children>
+                              <GridPane fx:id="gridEmpresa1" layoutX="28.0" layoutY="23.0" prefHeight="307.0" prefWidth="436.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="139.0" minWidth="10.0" prefWidth="48.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="177.0" minWidth="10.0" prefWidth="138.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="110.0" minWidth="10.0" prefWidth="28.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="160.0" minWidth="10.0" prefWidth="155.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="93.0" minWidth="10.0" prefWidth="22.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="28.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="28.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label prefHeight="21.0" prefWidth="213.0" text="Pasta armazenamento imagens" GridPane.columnSpan="2">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <JFXTextField fx:id="txtImagePath" focusColor="#ed0f00" prefHeight="26.0" prefWidth="238.0" promptText="D:\Lince\Imagens" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </JFXTextField>
+                                    <Button fx:id="btnSalvarSerttings" minWidth="53.0" mnemonicParsing="false" onAction="#btnSalvarSettingsAction" prefHeight="47.0" prefWidth="109.0" style="-fx-background-color: #0099FF;" text="Salvar" GridPane.columnIndex="3" GridPane.rowIndex="10">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Button>
+                                    <Button fx:id="btnCancelarSettings" minWidth="53.0" mnemonicParsing="false" onAction="#btnCancelarSettingsAction" prefHeight="47.0" prefWidth="108.0" style="-fx-background-color: #212121;" text="Cancelar" textFill="#fcf9f9" GridPane.columnIndex="1" GridPane.rowIndex="10">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Button>
+                                    <Button fx:id="btnAlterarPath" layoutX="10.0" layoutY="284.0" minWidth="53.0" mnemonicParsing="false" onAction="#btnAlterarPathAction" prefHeight="47.0" prefWidth="108.0" style="-fx-background-color: #212121;" text="Alterar" textFill="#fcf9f9" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </GridPane>
+                           </children>
                         </Pane>
 <!--<<<<<<< HEAD
 =======

@@ -12,21 +12,32 @@ package lincejava.Model;
 public class PacienteModel
 {
     private int id;
+    private int id_animal;
     private double peso;
     private String grupoManejo;
     private String raca;
+    private SessaoModel sessao;
 
     public PacienteModel()
     {
         
     }
     
-    public PacienteModel(int id, double peso, String grupoManejo, String raca)
-    {
+    public PacienteModel(int id, int id_animal, double peso, String grupoManejo, String raca, SessaoModel sessao) {
         this.id = id;
+        this.id_animal = id_animal;
         this.peso = peso;
         this.grupoManejo = grupoManejo;
         this.raca = raca;
+        this.sessao = sessao;
+    }
+    
+    public SessaoModel getSessao() {
+        return sessao;
+    }
+
+    public void setSessao(SessaoModel sessao) {
+        this.sessao = sessao;
     }
 
     public int getId()
@@ -67,5 +78,13 @@ public class PacienteModel
     public void setRaca(String raca)
     {
         this.raca = raca;
-    }  
+    }
+    
+    public int getId_animal() {
+        return id_animal;
+    }
+
+    public void setId_animal(int id_animal) {
+        this.id_animal = id_animal;
+    }
 }
